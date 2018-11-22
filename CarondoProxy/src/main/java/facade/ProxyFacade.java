@@ -19,7 +19,7 @@ public List<CarDTO> getCars(String color, String eco, int minSize,
     List<Future<List<CarDTO>>> futures = new ArrayList();
     
     futures.add(pool.submit(new PerltConverter(color, eco, minSize, maxSize, minPrice, maxPrice)));
-   //  futures.add(pool.submit(new JesperConverter(color, eco, minSize, maxSize, minPrice, maxPrice)));
+    futures.add(pool.submit(new JesperConverter(color, eco, minSize, maxSize, minPrice, maxPrice)));
     
     List<CarDTO> cars = new ArrayList();
     for(Future<List<CarDTO>> f : futures){
