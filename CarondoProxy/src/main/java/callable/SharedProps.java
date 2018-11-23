@@ -15,7 +15,7 @@ import com.google.gson.JsonObject;
  * @author Jesper
  */
 public class SharedProps {
-    
+
     protected String color;
     protected String eco;
     protected int minSize;
@@ -32,17 +32,22 @@ public class SharedProps {
         this.minPrice = minPrice;
         this.maxPrice = maxPrice;
     }
-    
-    protected String getFieldValueAsString(JsonElement j, String fieldName){
+
+    protected String getFieldValueAsString(JsonElement j, String fieldName) {
         return j.getAsJsonObject().get(fieldName).getAsString();
     }
-    
-     protected int getFieldValueAsInt(JsonElement j, String fieldName){   
-               return j.getAsJsonObject().get(fieldName).getAsInt();
+
+    protected int getFieldValueAsInt(JsonElement j, String fieldName) {
+        return j.getAsJsonObject().get(fieldName).getAsInt();
     }
-     protected JsonObject getFieldValueAsJsonObject(JsonElement j, String fieldName){   
-               return j.getAsJsonObject().get(fieldName).getAsJsonObject();
+
+    protected JsonObject getFieldValueAsJsonObject(JsonElement j, String fieldName) {
+        return j.getAsJsonObject().get(fieldName).getAsJsonObject();
     }
-    
-    
+
+    protected boolean getFieldValueAsBoolean(JsonElement j, String fieldName) {
+        return j.getAsJsonObject().get(fieldName).getAsBoolean();
+
+    }
+
 }
