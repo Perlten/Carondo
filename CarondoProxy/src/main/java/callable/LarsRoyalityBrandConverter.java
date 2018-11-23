@@ -27,22 +27,35 @@ public class LarsRoyalityBrandConverter extends SharedProps implements Callable<
 
     @Override
     public List<CarDTO> call() throws Exception {
+        //building request URL based on inputs
         String URL = URI;
 
         List<String> params = new ArrayList<>();
 
-        params.add("color=" + color);
-        params.add("min_price=" + minPrice);
-        params.add("max_price=" + maxPrice);
-        params.add("min_size=" + minSize);
-        params.add("max_size=" + maxSize);
+        if (color != null) {
+            params.add("color=" + color);
+        }
+        if (minPrice > 0) {
+            params.add("min_price=" + minPrice);
+        }
+        if (maxPrice > 0) {
+            params.add("max_price=" + maxPrice);
+        }
+        if (minSize > 0) {
+            params.add("min_size=" + minSize);
+        }
+        if (maxSize > 0) {
+            params.add("max_size=" + maxSize);
+        }
 
-        if (eco.equals("yes")) {
-            params.add("min_eco_rating=A");
-            params.add("min_km_liter=14");
-            params.add("energy_types=Electric,Hybrid");
-        } else if (eco.equals("no")) {
-            params.add("energy_types=Diesel");
+        if (eco != null) {
+            if (eco.equals("yes")) {
+                params.add("min_eco_rating=A");
+                params.add("min_km_liter=14");
+                params.add("energy_types=Electric,Hybrid");
+            } else if (eco.equals("no")) {
+                params.add("energy_types=Diesel");
+            }
         }
 
         if (!params.isEmpty()) {
@@ -51,12 +64,18 @@ public class LarsRoyalityBrandConverter extends SharedProps implements Callable<
                 URL += "&" + params.get(i);
             }
         }
+        
+        
+        //Making request
         String jsonRes = new URLRequest().request(URL);
+        
+        //Loading response
         JsonElement jelem = gson.fromJson(jsonRes, JsonElement.class);
         JsonArray arr = jelem.getAsJsonArray();
-
+        
         List<CarDTO> carList = new ArrayList();
         for (JsonElement j : arr) {
+            //Reading values
             //Standards
             String brand = "Lars Royality Brand";
             String model = getFieldValueAsString(j, "model");
@@ -65,7 +84,6 @@ public class LarsRoyalityBrandConverter extends SharedProps implements Callable<
             String color = getFieldValueAsString(j, "color");
             String imageUrl = getFieldValueAsString(j, "imageURL");
             String purchaseURL = getFieldValueAsString(j, "purchaseURL");
-            
             //Extras
             String ecoRating = getFieldValueAsString(j, "ecoRating");
             String energyType = getFieldValueAsString(j, "energyType");
@@ -81,9 +99,9 @@ public class LarsRoyalityBrandConverter extends SharedProps implements Callable<
             String horsepower = getFieldValueAsString(j, "horsepower");
             String kmLiter = getFieldValueAsString(j, "kmLiter");
             boolean turbo = getFieldValueAsBoolean(j, "turbo");
-            
-            String turboString = turbo? "Yes":"No";
-            
+            String turboString = turbo ? "Yes" : "No";
+
+            //Creating car object
             CarDTO car = new CarDTO(brand, model, price, color, seats, imageUrl, purchaseURL);
             car.extra.add(new CarExtraDTO("Eco Rating", ecoRating));
             car.extra.add(new CarExtraDTO("Energy Type", energyType));
@@ -98,7 +116,8 @@ public class LarsRoyalityBrandConverter extends SharedProps implements Callable<
             car.extra.add(new CarExtraDTO("HorsePower", horsepower));
             car.extra.add(new CarExtraDTO("Km/Liter", kmLiter));
             car.extra.add(new CarExtraDTO("Has Turbo:", turboString));
-
+            
+            //Adding car to list
             carList.add(car);
         }
         return carList;
