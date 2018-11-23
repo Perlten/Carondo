@@ -58,12 +58,12 @@ public class LarsRoyalityBrandConverter extends SharedProps implements Callable<
         List<CarDTO> carList = new ArrayList();
         for (JsonElement j : arr) {
             //Standards
-            String brand = getFieldValueAsString(j, "Lars Royality Brand");
+            String brand = "Lars Royality Brand";
             String model = getFieldValueAsString(j, "model");
             int price = (int) getFieldValueAsInt(j, "price");
             int seats = getFieldValueAsInt(j, "seats");
             String color = getFieldValueAsString(j, "color");
-            String imageUrl = getFieldValueAsString(j, "imageUrl");
+            String imageUrl = getFieldValueAsString(j, "imageURL");
             String purchaseURL = getFieldValueAsString(j, "purchaseURL");
             
             //Extras
@@ -88,11 +88,11 @@ public class LarsRoyalityBrandConverter extends SharedProps implements Callable<
             car.extra.add(new CarExtraDTO("Eco Rating", ecoRating));
             car.extra.add(new CarExtraDTO("Energy Type", energyType));
             car.extra.add(new CarExtraDTO("Lether Type", letherType));
-            car.extra.add(new CarExtraDTO("Weight", weight));
-            car.extra.add(new CarExtraDTO("Height", height));
-            car.extra.add(new CarExtraDTO("Width", width));
-            car.extra.add(new CarExtraDTO("Length", length));
-            car.extra.add(new CarExtraDTO("Volumen", volumen));
+            car.extra.add(new CarExtraDTO("Weight", weight + " Kg"));
+            car.extra.add(new CarExtraDTO("Height", height + " m"));
+            car.extra.add(new CarExtraDTO("Width", width + " m"));
+            car.extra.add(new CarExtraDTO("Length", length + " m"));
+            car.extra.add(new CarExtraDTO("Volume", volumen + " m3"));
             car.extra.add(new CarExtraDTO("RPM", rpm));
             car.extra.add(new CarExtraDTO("Cylinders", cylinders));
             car.extra.add(new CarExtraDTO("HorsePower", horsepower));
