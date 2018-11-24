@@ -34,7 +34,11 @@ public class SharedProps {
     }
 
     protected String getFieldValueAsString(JsonElement j, String fieldName) {
-        return j.getAsJsonObject().get(fieldName).getAsString();
+        try {
+            return j.getAsJsonObject().get(fieldName).getAsString();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     protected int getFieldValueAsInt(JsonElement j, String fieldName) {
