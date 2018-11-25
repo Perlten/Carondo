@@ -19,7 +19,7 @@ import java.util.concurrent.Callable;
  */
 public class RasmusConverter extends SharedProps implements Callable<List<CarDTO>> {
 
-    private final String URL = "http://b101c78a.ngrok.io/RasmusBackend/api/waauwe";
+    private final String URL = "https://rasmushelsgaun.dk/Waauwe/api/waauwe";
 
     public RasmusConverter(String color, String eco, int minSize, int maxSize, int minPrice, int maxPrice) {
         super(color, eco, minSize, maxSize, minPrice, maxPrice);

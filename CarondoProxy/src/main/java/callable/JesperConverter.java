@@ -16,7 +16,7 @@ import java.util.concurrent.Callable;
 
 public class JesperConverter extends SharedProps implements Callable<List<CarDTO>>{
 
-     private final String URL = "http://localhost:8084/ExamCarBackendJesper/api/car";
+     private final String URL = "https://jrusbjerg.dk/ExamCarBackendJesper/api/car";
     
     public JesperConverter(String color, String eco, int minSize, int maxSize, int minPrice, int maxPrice) {
         super(color, eco, minSize, maxSize, minPrice, maxPrice);
