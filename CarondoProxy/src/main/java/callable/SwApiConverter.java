@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 
-public class SwApi extends SharedProps implements Callable<List<CarDTO>> {
+public class SwApiConverter extends SharedProps implements Callable<List<CarDTO>> {
 
     private static LocalDateTime lastFetch = LocalDateTime.now();
     private static final String URL = "https://swapi.co/api/vehicles/";
@@ -21,7 +21,7 @@ public class SwApi extends SharedProps implements Callable<List<CarDTO>> {
 
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-    public SwApi(String color, String eco, int minSize, int maxSize, int minPrice, int maxPrice) {
+    public SwApiConverter(String color, String eco, int minSize, int maxSize, int minPrice, int maxPrice) {
         super(color, eco, minSize, maxSize, minPrice, maxPrice);
     }
 
