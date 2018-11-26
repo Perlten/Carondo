@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 
-public class SwApi extends SharedProps implements Callable<List<CarDTO>> {
+public class SwApiConverter extends SharedProps implements Callable<List<CarDTO>> {
 
     private static LocalDateTime lastFetch = LocalDateTime.now();
     private static final String URL = "https://swapi.co/api/vehicles/";
@@ -21,7 +21,7 @@ public class SwApi extends SharedProps implements Callable<List<CarDTO>> {
 
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-    public SwApi(String color, String eco, int minSize, int maxSize, int minPrice, int maxPrice) {
+    public SwApiConverter(String color, String eco, int minSize, int maxSize, int minPrice, int maxPrice) {
         super(color, eco, minSize, maxSize, minPrice, maxPrice);
     }
 
@@ -37,7 +37,6 @@ public class SwApi extends SharedProps implements Callable<List<CarDTO>> {
 
     private void shouldFetch() throws Exception {
         LocalDateTime now = LocalDateTime.now();
-        //TODO: Change to days!
         LocalDateTime lastFetchPlus1Day = lastFetch.plusDays(1);
         if (lastFetchPlus1Day.isBefore(now) || CARLIST.isEmpty()) {
             lastFetch = now;
@@ -48,10 +47,10 @@ public class SwApi extends SharedProps implements Callable<List<CarDTO>> {
 
     private void fetchData(String url) throws Exception {
         String data = new URLRequest().request(url);
-        converData(data);
+        convertData(data);
     }
 
-    private void converData(String data) throws Exception {
+    private void convertData(String data) throws Exception {
         JsonElement je = gson.fromJson(data, JsonElement.class);
         JsonArray arrayData = je.getAsJsonObject().getAsJsonArray("results");
         String next = getFieldValueAsString(je, "next");
@@ -94,5 +93,4 @@ public class SwApi extends SharedProps implements Callable<List<CarDTO>> {
                 .collect(Collectors.toList());
         return list;
     }
-
 }

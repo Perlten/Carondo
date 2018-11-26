@@ -19,7 +19,7 @@ import java.util.concurrent.ExecutionException;
 
 public class PerltConverter extends SharedProps implements Callable<List<CarDTO>> {
 
-    private final String URL = "http://764c691a.ngrok.io/CarmondoBackend/api/car";
+    private final String URL = "https://perlt.net/CarondoBackend/api/car";
 
     public PerltConverter(String color, String eco, int minSize, int maxSize, int minPrice, int maxPrice) {
         super(color, eco, minSize, maxSize, minPrice, maxPrice);
@@ -61,7 +61,7 @@ public class PerltConverter extends SharedProps implements Callable<List<CarDTO>
        
             CarExtraDTO extra1 = new CarExtraDTO("Manufacturer Name", manName);
             CarExtraDTO extra2 = new CarExtraDTO("Manufacturer Year", manYear);
-            CarExtraDTO extra3 = new CarExtraDTO("Echo", String.valueOf(echoLevel));
+            CarExtraDTO extra3 = new CarExtraDTO("Eco Level", String.valueOf(echoLevel));
             CarExtraDTO extra4 = new CarExtraDTO("Year", year);
             
             car.extra.add(extra1);

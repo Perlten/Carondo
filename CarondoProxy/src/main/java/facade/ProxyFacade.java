@@ -3,7 +3,8 @@ package facade;
 import callable.JesperConverter;
 import callable.LarsRoyalityBrandConverter;
 import callable.PerltConverter;
-import callable.SwApi;
+import callable.RasmusConverter;
+import callable.SwApiConverter;
 import dto.CarDTO;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,14 +24,13 @@ public class ProxyFacade {
         futures.add(pool.submit(new PerltConverter(color, eco, minSize, maxSize, minPrice, maxPrice)));
         futures.add(pool.submit(new LarsRoyalityBrandConverter(color, eco, minSize, maxSize, minPrice, maxPrice)));
         futures.add(pool.submit(new JesperConverter(color, eco, minSize, maxSize, minPrice, maxPrice)));
-        futures.add(pool.submit(new SwApi(color, eco, minSize, maxSize, minPrice, maxPrice)));
+        futures.add(pool.submit(new RasmusConverter(color, eco, minSize, maxSize, minPrice, maxPrice)));
+        futures.add(pool.submit(new SwApiConverter(color, eco, minSize, maxSize, minPrice, maxPrice)));
 
         List<CarDTO> cars = new ArrayList();
         for (Future<List<CarDTO>> f : futures) {
             cars.addAll(f.get());
         }
-
         return cars;
     }
-
 }
