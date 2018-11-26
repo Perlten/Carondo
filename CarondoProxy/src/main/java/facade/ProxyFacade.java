@@ -20,9 +20,9 @@ public class ProxyFacade {
 
         List<Future<List<CarDTO>>> futures = new ArrayList();
 
-//    futures.add(pool.submit(new PerltConverter(color, eco, minSize, maxSize, minPrice, maxPrice)));
-//    futures.add(pool.submit(new LarsRoyalityBrandConverter(color, eco, minSize, maxSize, minPrice, maxPrice)));
-//    futures.add(pool.submit(new JesperConverter(color, eco, minSize, maxSize, minPrice, maxPrice)));
+        futures.add(pool.submit(new PerltConverter(color, eco, minSize, maxSize, minPrice, maxPrice)));
+        futures.add(pool.submit(new LarsRoyalityBrandConverter(color, eco, minSize, maxSize, minPrice, maxPrice)));
+        futures.add(pool.submit(new JesperConverter(color, eco, minSize, maxSize, minPrice, maxPrice)));
         futures.add(pool.submit(new SwApi(color, eco, minSize, maxSize, minPrice, maxPrice)));
 
         List<CarDTO> cars = new ArrayList();
