@@ -39,7 +39,7 @@ public class RasmusConverter extends SharedProps implements Callable<List<CarDTO
             reqUrl += "&eco=false";
         }
         reqUrl += "&color=" + color;
-        String jsonRes = new URLRequest().request(reqUrl);
+            String jsonRes = new URLRequest().request(reqUrl);
         System.out.println(jsonRes);
 
         JsonElement jelem = gson.fromJson(jsonRes, JsonElement.class);
