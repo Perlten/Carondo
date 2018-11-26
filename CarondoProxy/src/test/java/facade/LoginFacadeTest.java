@@ -7,6 +7,7 @@ package facade;
 
 import entity.Employee;
 import entity.Role;
+import exception.CarondoException;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
@@ -68,35 +69,41 @@ public class LoginFacadeTest {
      * Test of getEmployee method, of class LoginFacade.
      */
     @Test
-    public void testGetEmployee() {
-        EmployeeFacade f = new EmployeeFacade(Persistence.createEntityManagerFactory("testpu"));
+    public void testGetEmployee() throws Exception {
+        EmployeeFacade f = getEmployeeFacade();
         Employee res = f.getEmployee(emp1.getEmail());
         assertEquals(emp1, res);
+    }
+
+    @Test(expected = CarondoException.class)
+    public void getNonExistentEmployee() throws Exception {
+        EmployeeFacade f = getEmployeeFacade();
+        f.getEmployee("fail@gmail.com");
+        fail();
     }
 
     /**
      * Test of login method, of class LoginFacade.
      */
     @Test
-    public void testSuccessfulLogin() {
-        EmployeeFacade f = new EmployeeFacade(Persistence.createEntityManagerFactory("testpu"));
+    public void testSuccessfulLogin() throws Exception {
+        EmployeeFacade f = getEmployeeFacade();
         Employee emp = f.login(emp2.getEmail(), "test");
         assertNotNull(emp);
     }
 
-    @Test
-    public void testFailLogin() {
-        EmployeeFacade f = new EmployeeFacade(Persistence.createEntityManagerFactory("testpu"));
-        Employee emp = f.login(emp2.getEmail(), "test23");
-        assertNull(emp);
+    @Test(expected = CarondoException.class)
+    public void testFailLogin() throws Exception {
+        EmployeeFacade f = getEmployeeFacade();
+        f.login(emp2.getEmail(), "test23");
     }
 
     /**
      * Test of createEmployee method, of class LoginFacade.
      */
     @Test
-    public void testCreateEmployee() {
-        EmployeeFacade f = new EmployeeFacade(Persistence.createEntityManagerFactory("testpu"));
+    public void testCreateEmployee() throws Exception {
+        EmployeeFacade f = getEmployeeFacade();
         Employee emp = new Employee("TEST", "TEST", "TEST", "TEST", Role.admin);
         f.createEmployee(emp);
         int expected = 5;
@@ -104,12 +111,27 @@ public class LoginFacadeTest {
         assertEquals(expected, res);
     }
 
+    @Test(expected = CarondoException.class)
+    public void testCreateEmployeeWithExistentEmail() throws Exception {
+        EmployeeFacade f = getEmployeeFacade();
+        Employee emp = new Employee("TEST", "TEST", emp1.getEmail(), "TEST", Role.admin);
+        f.createEmployee(emp);
+        fail();
+    }
+
+    @Test(expected = CarondoException.class)
+    public void testCreateEmployeeWithNull() throws Exception {
+        EmployeeFacade f = getEmployeeFacade();
+        f.createEmployee(null);
+        fail();
+    }
+
     /**
      * Test of editEmployee method, of class LoginFacade.
      */
     @Test
-    public void testEditEmployee() {
-        EmployeeFacade f = new EmployeeFacade(Persistence.createEntityManagerFactory("testpu"));
+    public void testEditEmployee() throws Exception {
+        EmployeeFacade f = getEmployeeFacade();
         String firstName = "EditPerson";
         Employee emp = f.getEmployee(emp3.getEmail());
         emp.setFirstName(firstName);
@@ -118,9 +140,16 @@ public class LoginFacadeTest {
         assertEquals(emp.getFirstName(), firstName);
     }
 
+    @Test(expected = CarondoException.class)
+    public void testEditEmployeeWithNull() throws Exception {
+        EmployeeFacade f = getEmployeeFacade();
+        f.editEmployee(null);
+        fail();
+    }
+
     @Test
-    public void testGetEmployees() {
-        EmployeeFacade f = new EmployeeFacade(Persistence.createEntityManagerFactory("testpu"));
+    public void testGetEmployees() throws Exception {
+        EmployeeFacade f = getEmployeeFacade();
         int expected = 4;
         int res = f.getEmployees().size();
         assertEquals(expected, res);
@@ -137,4 +166,7 @@ public class LoginFacadeTest {
         }
     }
 
+    private EmployeeFacade getEmployeeFacade() {
+        return new EmployeeFacade(Persistence.createEntityManagerFactory("testpu"));
+    }
 }

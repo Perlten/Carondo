@@ -9,7 +9,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Persistence;
 import org.mindrot.jbcrypt.BCrypt;
 
 @Entity
@@ -24,6 +23,7 @@ public class Employee implements Serializable {
     private String email;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @Column(nullable = false)
     private String password;
 
     public Employee() {
