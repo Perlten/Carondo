@@ -25,6 +25,10 @@ public class UserPrincipal implements Principal {
         return email;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public boolean isUserInRole(String role) {
         return this.role.equals(role);
     }

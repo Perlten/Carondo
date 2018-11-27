@@ -9,7 +9,7 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 public class EmployeeFacade {
-
+    
     private EntityManagerFactory emf;
 
     public EmployeeFacade() {
