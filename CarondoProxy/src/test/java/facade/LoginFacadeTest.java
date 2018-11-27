@@ -73,6 +73,7 @@ public class LoginFacadeTest {
         EmployeeFacade f = getEmployeeFacade();
         Employee res = f.getEmployee(emp1.getEmail());
         assertEquals(emp1, res);
+        
     }
 
     @Test(expected = CarondoException.class)
