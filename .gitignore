@@ -92,7 +92,7 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-src/main/resources/META-INF/
+
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
