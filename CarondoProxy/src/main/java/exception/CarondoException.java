@@ -4,11 +4,17 @@ package exception;
 public class CarondoException extends Exception {
     
     private int errorCode;
-    private String msg;
-    
-    public CarondoException(int errorCode, String msg) {
+    private String errorTitle;
+    private String errorMessage;
+
+    public CarondoException(int errorCode, String errorTitle, String errorMessage) {
         this.errorCode = errorCode;
-        this.msg = msg;
+        this.errorTitle = errorTitle;
+        this.errorMessage = errorMessage;
+    }
+    
+    public CarondoException(String errorTitle, String errorMessage){
+        this(400, errorTitle, errorMessage);
     }
 
     public CarondoException() {
@@ -18,7 +24,11 @@ public class CarondoException extends Exception {
         return errorCode;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public String getErrorTitle() {
+        return errorTitle;
     }
 }
