@@ -19,7 +19,7 @@ public class URLRequest {
         connection.setRequestProperty("User-Agent", "server");
 
         //waits 60 seconds
-        connection.setConnectTimeout(60 * 1000);
+        connection.setConnectTimeout(4 * 1000);
         connection.connect();
 
         int code = connection.getResponseCode();

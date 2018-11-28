@@ -6,13 +6,13 @@ import java.util.List;
 
 public class CarDTO {
 
-private String brand;
-private String model;
-private int price;
-private String color;
-private int size;
-private String imageURL;
-private String purchaseURL;
+public String brand;
+public String model;
+public int price;
+public String color;
+public int size;
+public String imageURL;
+public String purchaseURL;
 public List<CarExtraDTO> extra = new ArrayList();
 
     public CarDTO(String brand, String model, int price, String color, int size, String imageURL, String purchaseURL) {

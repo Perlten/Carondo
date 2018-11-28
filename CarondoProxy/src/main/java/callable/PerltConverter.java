@@ -19,7 +19,7 @@ import java.util.concurrent.ExecutionException;
 
 public class PerltConverter extends SharedProps implements Callable<List<CarDTO>> {
 
-    private final String URL = "http://764c691a.ngrok.io/CarmondoBackend/api/car";
+    private final String URL = "https://perlt.net/CarondoBackend/api/car";
 
     public PerltConverter(String color, String eco, int minSize, int maxSize, int minPrice, int maxPrice) {
         super(color, eco, minSize, maxSize, minPrice, maxPrice);
@@ -27,8 +27,6 @@ public class PerltConverter extends SharedProps implements Callable<List<CarDTO>
     
     @Override
     public List<CarDTO> call() throws Exception {
-      
-        
         String reqUrl = URL + "?color="+color;
         if(eco.equals("yes")){
             reqUrl += "&echoLevel=2,3";
@@ -41,7 +39,6 @@ public class PerltConverter extends SharedProps implements Callable<List<CarDTO>
         reqUrl += "&maxSize=" + maxSize;
         String jsonRes = new URLRequest().request(reqUrl);
         System.out.println(jsonRes);
-        
         
         JsonElement jelem = gson.fromJson(jsonRes, JsonElement.class);
         JsonArray arr = jelem.getAsJsonArray();
@@ -60,31 +57,22 @@ public class PerltConverter extends SharedProps implements Callable<List<CarDTO>
             String manName = getFieldValueAsString(manObject, "name");
             String manYear = getFieldValueAsString(manObject, "year");
             
+            CarDTO car = new CarDTO(manName, name, price, color, size, imageUrl, imageUrl);
+       
             CarExtraDTO extra1 = new CarExtraDTO("Manufacturer Name", manName);
             CarExtraDTO extra2 = new CarExtraDTO("Manufacturer Year", manYear);
-            CarExtraDTO extra3 = new CarExtraDTO("Echo", String.valueOf(echoLevel));
+            CarExtraDTO extra3 = new CarExtraDTO("Eco Level", String.valueOf(echoLevel));
             CarExtraDTO extra4 = new CarExtraDTO("Year", year);
             
-            CarDTO car = new CarDTO(manName, name, price, color, size, imageUrl, imageUrl);
             car.extra.add(extra1);
             car.extra.add(extra2);
             car.extra.add(extra3);
             car.extra.add(extra4);
             
             carList.add(car);
-            
         }
         
         return carList;
         
     }
-   
-    
-    public static void main(String[] args) throws InterruptedException, ExecutionException {
-        ProxyFacade f = new ProxyFacade();
-        f.getCars("black,blue", "yes", 2, 5, 1, 3000000);
-        
-    }
-    
-    
 }
