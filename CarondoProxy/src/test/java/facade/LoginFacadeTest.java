@@ -37,7 +37,6 @@ public class LoginFacadeTest {
         emp3 = new Employee("Jesper", "Jeppe", "enig@gmail.com", "hej", Role.statistician);
         emp4 = new Employee("Adam", "Harry", "harry@gmail.com", "hp", Role.admin);
 
-        Persistence.generateSchema("testpu", null);
         em = Persistence.createEntityManagerFactory("testpu").createEntityManager();
         try {
             em.getTransaction().begin();
