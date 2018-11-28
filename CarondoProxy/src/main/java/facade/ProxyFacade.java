@@ -15,6 +15,7 @@ import java.util.concurrent.Future;
 
 public class ProxyFacade {
 
+
     public List<CarDTO> getCars(String color, String eco, int minSize,
             int maxSize, int minPrice, int maxPrice) throws InterruptedException, ExecutionException {
         ExecutorService pool = Executors.newFixedThreadPool(2);
