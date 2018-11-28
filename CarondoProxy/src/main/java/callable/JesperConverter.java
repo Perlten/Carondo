@@ -43,8 +43,9 @@ public class JesperConverter extends SharedProps implements Callable<List<CarDTO
         JsonArray arr = jelem.getAsJsonArray();
         
         List<CarDTO> carList = new ArrayList();
+        
         for(JsonElement j : arr){
-            int price = getFieldValueAsInt(j, "price");
+                int price = getFieldValueAsInt(j, "price");
             String color = getFieldValueAsString(j, "color");
             int size = getFieldValueAsInt(j, "size");
             String image = getFieldValueAsString(j, "image");
@@ -57,7 +58,6 @@ public class JesperConverter extends SharedProps implements Callable<List<CarDTO
             
             
             JsonArray extraArr = j.getAsJsonObject().get("extras").getAsJsonArray();
-            System.out.println(extraArr);
             
             for (JsonElement jsonElement : extraArr) {
                 String label = getFieldValueAsString(jsonElement, "label");
