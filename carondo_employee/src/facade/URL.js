@@ -1,3 +1,2 @@
-// const URL = "https://perlt.net/CarondoTest/api/"
-const URL = "https://2943a0a8.ngrok.io/CarondoProxy/api/"
+const URL = "https://perlt.net/CarondoTest/api/"
 export default URL;
