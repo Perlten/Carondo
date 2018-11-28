@@ -15,7 +15,9 @@ import java.util.concurrent.Callable;
 
 public class JesperConverter extends SharedProps implements Callable<List<CarDTO>> {
 
+    private boolean first = true;
     private final String URL = "https://jrusbjerg.dk/ExamCarBackendJesper/api/car";
+    private String reqUrl = URL;
 
     public JesperConverter(String color, String eco, int minSize, int maxSize, int minPrice, int maxPrice) {
         super(color, eco, minSize, maxSize, minPrice, maxPrice);
@@ -24,23 +26,27 @@ public class JesperConverter extends SharedProps implements Callable<List<CarDTO
     @Override
     public List<CarDTO> call() throws Exception {
         
-        String reqUrl = URL;
         
-        if(color.equals("all")){
-            reqUrl += "?";
-        }else{
-            reqUrl += "?color=" + color;
+        if(!color.equals("all")){
+            checkIfFirst();
+            reqUrl += "color=" + color;
         }
         
         if (eco.equals("yes")) {
-            reqUrl += "&eco=1";
+            checkIfFirst();
+            reqUrl += "eco=1";
         } else if (eco.equals("no")) {
-            reqUrl += "&eco=2";
+            checkIfFirst();
+            reqUrl += "eco=2";
         }
-        reqUrl += "&minprice=" + minPrice;
-        reqUrl += "&maxprice=" + maxPrice;
-        reqUrl += "&minsize=" + minSize;
-        reqUrl += "&maxsize=" + maxSize;
+        checkIfFirst();
+        reqUrl += "minprice=" + minPrice;
+        checkIfFirst();
+        reqUrl += "maxprice=" + maxPrice;
+        checkIfFirst();
+        reqUrl += "minsize=" + minSize;
+        checkIfFirst();
+        reqUrl += "maxsize=" + maxSize;
         String jsonRes = new URLRequest().request(reqUrl);
         System.out.println(jsonRes);
 
@@ -76,6 +82,16 @@ public class JesperConverter extends SharedProps implements Callable<List<CarDTO
 
         return carList;
 
+    }
+    
+    public void checkIfFirst(){
+        if(first){
+            first = false;
+            reqUrl += "?";
+        }
+        reqUrl += "&";
+            
+        
     }
 
   
