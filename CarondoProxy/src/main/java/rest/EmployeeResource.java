@@ -34,6 +34,7 @@ import javax.ws.rs.core.SecurityContext;
 public class EmployeeResource {
 
     private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private EmployeeFacade facade = new EmployeeFacade();
 
     @Context
     private UriInfo context;
@@ -45,8 +46,7 @@ public class EmployeeResource {
     public Response login(String json) throws CarondoException, JOSEException {
         LoginDTO dto = gson.fromJson(json, LoginDTO.class);
 
-        EmployeeFacade f = new EmployeeFacade();
-        Employee emp = f.login(dto.email, dto.password);
+        Employee emp = facade.login(dto.email, dto.password);
         String token = new TokenFacade().createToken(emp);
 
         JsonObject jo = new JsonObject();
@@ -59,4 +59,20 @@ public class EmployeeResource {
                 .build();
     }
 
+    @POST
+    @Path("create")
+    @RolesAllowed("admin")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createUser(String json) throws CarondoException {
+        Employee emp = gson.fromJson(json, Employee.class);
+        Employee res = facade.createEmployee(emp);
+        String jsonBack = gson.toJson(res);
+
+        return Response
+                .status(Response.Status.OK)
+                .entity(jsonBack)
+                .type(MediaType.APPLICATION_JSON)
+                .build();
+    }
 }

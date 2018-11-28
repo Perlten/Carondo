@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import facade from './../facade/LoginFacade';
 import {parseJWT} from './../facade/FacadeUtils';
-import { Link } from 'react-router-dom';
 
 export default class LoginPage extends Component {
     constructor(props) {
@@ -39,8 +38,9 @@ export default class LoginPage extends Component {
             this.setState({ error: "Could not login" })
             return;
         }
-        console.log(parseJWT(res.token));
-        // this.props.history.push('/adminPage');
+        const token = parseJWT(res.token);
+        const history = this.props.history
+        token.role === "admin" ? history.push('/adminPage') : history.push('/statisticianPage')
     }
 
 
