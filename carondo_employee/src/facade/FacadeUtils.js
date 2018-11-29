@@ -1,4 +1,7 @@
-export async function makeOptions (method, addToken, body) {
+import { Base64 } from 'js-base64';
+
+
+export function makeOptions(method, addToken, body) {
     var opts = {
         method: method,
         headers: {
@@ -26,10 +29,20 @@ export function setToken(token) {
 export async function handleHttpErrors(res) {
     if (!res.ok) {
         const fullError = await res.json();
-        throw { status: res.status, fullError };
-
+        var err = {
+            status: res.status,
+            fullError
+        }
+        throw err;
     }
     const json = await res.json();
-    json["status"] = res.status;
     return json;
+}
+
+export function parseJWT(token) {
+    const t = token.split(".");
+    const string = t[1];
+    const json = Base64.decode(string);
+    const obj = JSON.parse(json);
+    return obj;
 }
