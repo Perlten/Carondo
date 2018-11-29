@@ -13,7 +13,7 @@ export default class MyNav extends React.Component{
                 position="bottomRight"
                 onPress={() => this.props.navigation.navigate("Search")}>
                 
-                <Image style={Styles.image} source={require("../pics/search.png")} />
+                <Image style={Styles.image} source={require("../pics/research.png")} />
               </Fab>
         )
     }

@@ -89,7 +89,7 @@ export default class Results extends React.Component {
       )
 
       return (
-      <View style={{backgroundColor: "#f1f1f1"}}>
+      <View style={{backgroundColor: "#f1f1f1", flex: 1}}>
 
         <ScrollView>
         {list}

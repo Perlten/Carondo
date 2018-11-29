@@ -19,7 +19,7 @@ export default class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      price: [1000, 3000000],
+      price: [400000, 2800000],
       seats: [2, 6],
       eco: "all",
       selectedColors: ["red", "blue", "black", "white", "silver", "green"],
