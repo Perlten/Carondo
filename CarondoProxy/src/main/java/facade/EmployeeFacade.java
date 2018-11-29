@@ -50,7 +50,7 @@ public class EmployeeFacade {
 
     public Employee createEmployee(Employee emp) throws CarondoException {
         EntityManager em = getEntityManager();
-
+        Employee.hashPW(emp);
         try {
             em.getTransaction().begin();
             em.persist(emp);
@@ -68,6 +68,8 @@ public class EmployeeFacade {
 
         try {
             em.getTransaction().begin();
+            Employee e = em.find(Employee.class, emp.getId());
+            emp.setPassword(e.getPassword());
             em.merge(emp);
             em.getTransaction().commit();
         } catch (Exception e) {

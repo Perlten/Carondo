@@ -119,12 +119,12 @@ public class LoginFacadeTest {
         fail();
     }
 
-    @Test(expected = CarondoException.class)
-    public void testCreateEmployeeWithNull() throws Exception {
-        EmployeeFacade f = getEmployeeFacade();
-        f.createEmployee(null);
-        fail();
-    }
+//    @Test(expected = CarondoException.class)
+//    public void testCreateEmployeeWithNull() throws Exception {
+//        EmployeeFacade f = getEmployeeFacade();
+//        f.createEmployee(null);
+//        fail();
+//    }
 
     /**
      * Test of editEmployee method, of class LoginFacade.

@@ -8,7 +8,7 @@ class LoginFacade {
             const res = await fetch(URL + "employee/login", options);
             const json = await handleHttpErrors(res);
             setToken(json.token);
-            json.status = 200;
+            json.status = res.status;
             return json;
         } catch (e) {
             return e;
@@ -21,7 +21,7 @@ class LoginFacade {
         try {
             const res = await fetch(URL + "employee/create", options)
             const json = await handleHttpErrors(res)
-            json.status = 200
+            json.status = res.status
             return json;
         } catch (error) {
             return error

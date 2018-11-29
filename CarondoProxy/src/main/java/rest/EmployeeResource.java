@@ -23,6 +23,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -92,6 +93,24 @@ public class EmployeeResource {
         return Response
                 .status(Response.Status.OK)
                 .entity(json)
+                .type(MediaType.APPLICATION_JSON)
+                .build();
+    }
+
+    @PUT
+    @Path("edit")
+    @RolesAllowed("admin")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response editEmployee(String json) throws CarondoException {
+        Employee emp = gson.fromJson(json, Employee.class);
+        facade.editEmployee(emp);
+        EmployeeDTO dto = new EmployeeDTO(emp);
+        String jsonBack = gson.toJson(dto);
+        
+        return Response
+                .status(Response.Status.OK)
+                .entity(jsonBack)
                 .type(MediaType.APPLICATION_JSON)
                 .build();
     }

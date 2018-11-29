@@ -15,6 +15,17 @@ class EmpCrudFacade {
             return e;
         }
     }
+
+    edit = async (emp) => {
+        try {
+            const opts = makeOptions("PUT", true, emp);
+            const res = await fetch(URL + "employee/edit", opts);
+            const json = await handleHttpErrors(res);
+            return {emp: json, status: res.status};
+        } catch (error) {
+            return error;
+        }
+    }
 }
 
 export default new EmpCrudFacade();

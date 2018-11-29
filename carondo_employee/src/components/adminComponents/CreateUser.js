@@ -6,7 +6,7 @@ export default class CreateUser extends Component {
         super()
         this.state = {
             create: { firstName: "", lastName: "", email: "", password: "", role: "admin" },
-            error: ""
+            message: ""
         }
     }
 
@@ -17,7 +17,7 @@ export default class CreateUser extends Component {
         return (
             <div>
                 <h1>Admin page!</h1>
-                <h2 style={{ color: "red" }}>{this.state.error}</h2>
+                <h2 style={{ color: "red" }}>{this.state.message}</h2>
                 <form onSubmit={this.handleSubmit}>
                     <input id="firstName" placeholder="First name" onChange={this.handleChange} value={this.state.create.firstName} />
                     <br />
@@ -53,10 +53,10 @@ export default class CreateUser extends Component {
         const res = await facade.create(body);
         console.log(res);
         if (res.status !== 200) {
-            this.setState({ error: "Could not register the user" })
+            this.setState({ message: res.fullError.errorMessage })
             return;
         }
-        this.setState({error: "Successful!"})
+        this.setState({message: "Successful!"})
     }
 
 
