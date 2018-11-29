@@ -56,7 +56,7 @@ makeOptions = async (method,body) => {
             const json = await handleHttpErrors(res)
             return json;
         } catch (e) {
-            return e
+            throw e
         }
 
     }

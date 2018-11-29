@@ -35,14 +35,12 @@ export default class CarView extends React.Component{
             </View>
             
 
-            <View style={{ flex: 1 }}>
-            <TouchableHighlight style={Styles.container} onPress={() => this.props.navigation.navigate("WebView", {url: car.purchaseURL})}>
-                <View style={Styles.button}>
+            <View style={Styles.container}>
+                <TouchableHighlight style={Styles.button} onPress={() => this.props.navigation.navigate("WebView", {url: car.purchaseURL})}>
                     <Text style={Styles.buttonText}>
                         Go to site
                     </Text>
-                </View>
-            </TouchableHighlight>
+                </TouchableHighlight>
             </View>
             </>
 

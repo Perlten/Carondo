@@ -158,13 +158,11 @@ export default class Search extends React.Component {
                     </ScrollView>
                 </View>
 
-                <View style={{ flex: 1 }}>
-                    <TouchableHighlight style={Styles.container} onPress={() => this.props.navigation.navigate("Results", {price: this.state.price, seats: this.state.seats, eco: this.state.eco, colors: this.state.selectedColors})}>
-                        <View style={Styles.button}>
+                <View style={Styles.container}>
+                    <TouchableHighlight style={Styles.button} onPress={() => this.props.navigation.navigate("Results", {price: this.state.price, seats: this.state.seats, eco: this.state.eco, colors: this.state.selectedColors})}>
                             <Text style={Styles.buttonText}>
                                 Search
                             </Text>
-                        </View>
                     </TouchableHighlight>
                 </View>
 

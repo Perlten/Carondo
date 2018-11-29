@@ -1,5 +1,5 @@
-import React from "react";
-import { StyleSheet, Text, View, TouchableHighlight, ScrollView } from "react-native";
+import React, { createContext } from "react";
+import { StyleSheet,Image, Text, View, TouchableHighlight, ScrollView, Dimensions } from "react-native";
 import Facade from "../facade";
 import CarResult from "../components/CarResult";
 
@@ -8,7 +8,8 @@ export default class Results extends React.Component {
     super(props);
 
     this.state = {
-      results: null
+      results: null,
+      error: null
     }
   }
   async componentDidMount(){
@@ -20,13 +21,37 @@ export default class Results extends React.Component {
     const max_price = nav.getParam("price")[1];
     const eco = nav.getParam("eco");
     
-
+    try{
     const results = await Facade.fetchCars(min_seats, max_seats, colors, min_price, max_price, eco)
+    this.setState({results})  
+  }catch(e){
+    console.log("ERROR!!!!: " + JSON.stringify(e))
+    if(e.fullError){
+      this.setState({error: e.fullError})
+    } else{
+      const error = {
+        errorTitle: "Could not connect!",
+        errorMessage: "Please try again again later.",
+        
+      }
+      this.setState({error})
+    }
+
+    }
+
     
-    this.setState({results})
   }
 
   render() {
+
+    if(this.state.error){
+      return(
+      <View>
+        <Text>{this.state.error.errorTitle}</Text>
+        <Text>{this.state.error.errorMessage}</Text>
+      </View>
+);
+    }
 
 
     if(this.state.results){
@@ -47,10 +72,28 @@ export default class Results extends React.Component {
       );
     }
     return (
-      <View>
-        <Text>Loading!</Text>
+      <>
+      <View style={Styles.container}>
+      <Image style={Styles.image} source={require('../pics/loading.gif')}/>
+
       </View>
+      </>
       );
     
   }
 }
+const win = Dimensions.get("window")
+
+const Styles = StyleSheet.create({
+  container: {
+    flex:1,
+    // width: 30,
+    
+      alignItems: 'center',
+      justifyContent: 'center',
+  },
+  image:{
+    // width: 100,
+    // height: 250
+  }
+});
