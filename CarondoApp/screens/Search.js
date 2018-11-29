@@ -13,7 +13,7 @@ export default class Search extends React.Component {
             price: [1000, 3000000],
             seats: [2, 6],
             eco: 'all',
-            selectedColors: [],
+            selectedColors: ["red", "blue", "black", "white", "silver", "green"],
         }
     }
 
@@ -61,7 +61,7 @@ export default class Search extends React.Component {
             { label: 'All', value: 'all' },
             { label: 'Yes', value: 'yes' },
             { label: 'No', value: 'no' }
-        ];
+        ]; 
 
         return (
             <>
@@ -70,9 +70,9 @@ export default class Search extends React.Component {
                     <ScrollView >
                         <View style={Styles.container} >
 
-                            {/* <Image source={require("../pics/carondo.png")}/> */}
+                            <Image style={Styles.image} source={require("../pics/carondo.png")}/>
+                            
                             <Text style={{ fontSize: 35, paddingBottom: 40 }}> Search </Text>
-                            {/* <Text>{JSON.stringify(this.state)} </Text> */}
 
                             <Slider
                                 onChange={this.updateSeats}
@@ -157,7 +157,7 @@ export default class Search extends React.Component {
                 </View>
 
                 <View style={{ flex: 1 }}>
-                    <TouchableHighlight style={Styles.container} onPress={() => this.props.navigation.navigate("Results")}>
+                    <TouchableHighlight style={Styles.container} onPress={() => this.props.navigation.navigate("Results", {price: this.state.price, seats: this.state.seats, eco: this.state.eco, colors: this.state.selectedColors})}>
                         <View style={Styles.button}>
                             <Text style={Styles.buttonText}>
                                 Search

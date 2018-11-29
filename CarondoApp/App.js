@@ -1,12 +1,14 @@
 import { createAppContainer, createStackNavigator} from 'react-navigation';
 import Search from "./screens/Search"
 import Results from "./screens/Results"
+import CarView from "./screens/CarView"
 
 // you can also import from @react-navigation/native
 
 const AppNavigator = createStackNavigator({
 Search: Search,
-Results: Results
+Results: Results,
+CarView: CarView
 
 });
 

@@ -1,4 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions} from 'react-native';
+
+
+const win = Dimensions.get('window');
 
 const Styles = StyleSheet.create({
     container: {
@@ -23,6 +26,12 @@ const Styles = StyleSheet.create({
         padding: 20,
         fontSize: 24,
         color: 'white'
+    },
+    image: {
+        flex: 1,
+        alignSelf: 'stretch',
+        width: win.width,
+        height: 100
     }
 
 });
