@@ -30,7 +30,7 @@ export default class Results extends React.Component {
 
 
     if(this.state.results){
-
+      console.log(this.state.results)
       const sortedList = this.state.results.sort((a,b)=>{
         return a.price - b.price  
       })

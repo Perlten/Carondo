@@ -29,7 +29,7 @@ carTouched = () =>{
                     </View>
                     <View style={{flex: 1}}>
                         <Text style={Styles.price}>
-                            ${car.price}
+
                         </Text>
 
                     </View>
