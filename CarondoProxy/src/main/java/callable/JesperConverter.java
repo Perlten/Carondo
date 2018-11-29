@@ -59,12 +59,13 @@ public class JesperConverter extends SharedProps implements Callable<List<CarDTO
                 String color = getFieldValueAsString(j, "color");
                 int size = getFieldValueAsInt(j, "size");
                 String image = getFieldValueAsString(j, "image");
+                String purchaseUrl = getFieldValueAsString(j, "purchaseUrl");
 
                 JsonElement manObject = getFieldValueAsJsonObject(j, "Manufacturer");
                 String name = getFieldValueAsString(manObject, "name");
                 String model = getFieldValueAsString(manObject, "model");
 
-                CarDTO car = new CarDTO(name, model, price, color, size, image, image);
+                CarDTO car = new CarDTO(name, model, price, color, size, image, purchaseUrl);
 
                 JsonArray extraArr = j.getAsJsonObject().get("extras").getAsJsonArray();
 
