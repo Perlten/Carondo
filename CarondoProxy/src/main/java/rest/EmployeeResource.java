@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -107,7 +108,25 @@ public class EmployeeResource {
         facade.editEmployee(emp);
         EmployeeDTO dto = new EmployeeDTO(emp);
         String jsonBack = gson.toJson(dto);
-        
+
+        return Response
+                .status(Response.Status.OK)
+                .entity(jsonBack)
+                .type(MediaType.APPLICATION_JSON)
+                .build();
+    }
+
+    @DELETE
+    @Path("delete")
+    @RolesAllowed("admin")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteEmployee(String json) throws CarondoException {
+        Employee emp = gson.fromJson(json, Employee.class);
+        facade.deleteEmployee(emp);
+        EmployeeDTO dto = new EmployeeDTO(emp);
+        String jsonBack = gson.toJson(dto);
+
         return Response
                 .status(Response.Status.OK)
                 .entity(jsonBack)

@@ -19,11 +19,12 @@ export default class AdminPage extends Component {
                 <Grid>
                     <Row>
                         <Col md={4} xs={4}>
+                            <h1>Admin page</h1>
                             <ShowEmployees empList={this.state.empList} selectEmp={this.selectEmp} fetchEmployees={this.fetchEmployees} />
                             <CreateUser />
                         </Col>
                         <Col md={6} xs={6} xsOffset={2}>
-                            <ShowSelected emp={this.state.selectedEmp} updateEmp={this.updateEmployees} />
+                            <ShowSelected emp={this.state.selectedEmp} updateEmp={this.updateEmployees} deleteEmp={this.deleteEmployee} />
                         </Col>
                     </Row>
                 </Grid>
@@ -32,17 +33,23 @@ export default class AdminPage extends Component {
     }
 
     updateEmployees = (emp) => {
-        console.log(emp);
         const empList = this.state.empList.map((e) => {
-            return(e.id === emp.id) ? emp : e;
+            return (e.id === emp.id) ? emp : e;
         })
-        this.setState({empList});
+        this.setState({ empList, selectedEmp: emp });
+    }
+
+    deleteEmployee = (emp) => {
+        const empList = this.state.empList.filter((e) => {
+            return e.id !== emp.id
+        })
+        this.setState({ empList, selectedEmp: null });
     }
 
     fetchEmployees = async () => {
         const res = await empFacade.getEmployees();
         if (res.status !== 200) {
-            alert("FUCK!!");
+            alert("Failed to fetch all employees");
             return;
         }
         this.setState({ empList: res.emp });
