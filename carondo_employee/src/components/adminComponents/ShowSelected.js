@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel, Button, DropdownButton, MenuItem } from 'react-bootstrap';
 import empFacade from './../../facade/EmpCrudFacade';
 
 export default class ShowEmployee extends Component {
@@ -70,7 +70,8 @@ export default class ShowEmployee extends Component {
                             required
                         />
                         <ControlLabel>Role</ControlLabel>
-                        <RoleDropDownOptions role={this.state.emp.role} />
+                        <br />
+                        <RoleDropDownOptions handleChange={this.handleDropDown} role={this.state.emp.role} />
                     </FormGroup>
                     <Button bsStyle="warning" onClick={this.handleSubmit}>Edit</Button>{' '}
                     <Button bsStyle="danger" onClick={this.handleDelete}>Delete</Button>
@@ -91,6 +92,7 @@ export default class ShowEmployee extends Component {
         const emp = this.state.emp
         emp[id] = value;
         this.setState({ emp });
+        console.log(this.state.emp)
     }
 
     handleSubmit = async (e) => {
@@ -116,21 +118,25 @@ export default class ShowEmployee extends Component {
         this.setState({ message: "User deleted!" })
         this.props.deleteEmp(res.emp)
     }
+
+    handleDropDown = (e) => {
+        const emp = this.state.emp;
+        emp.role = e;
+        this.setState({emp});
+    }
 }
 
-function RoleDropDownOptions({ role }) {
-    if (role === "admin") {
-        return (
-            <FormControl componentClass="select" placeholder="Role">
-                <option defaultValue="admin" >Admin</option>
-                <option value="statistician">Statistician</option>
-            </FormControl>
-        );
-    }
+function RoleDropDownOptions({ role, handleChange }) {
     return (
-        <FormControl componentClass="select" placeholder="Role">
-            <option value="admin">Admin</option>
-            <option defaultValue="statistician">Statistician</option>
-        </FormControl>
+        <DropdownButton
+            bsStyle="primary"
+            title={role}
+            id="role"
+            onSelect={handleChange}
+        >
+            <MenuItem eventKey="statistician" active={role === "statistician"}>Statistician</MenuItem>
+            <MenuItem eventKey="admin" value="statistician" active={role === "admin"}>Admin</MenuItem>
+        </DropdownButton>
+
     );
 }
