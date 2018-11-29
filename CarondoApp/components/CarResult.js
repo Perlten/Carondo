@@ -18,26 +18,33 @@ carTouched = () =>{
         const car = this.props.car
        
         return(
+
             <TouchableHighlight style={Styles.touchable} onPress={this.carTouched}>
                 <View style={Styles.container}>
                     <Image style={Styles.image} source={{uri: car.imageURL}}/>
                     <View style={Styles.view}>
-                    <View style={{flex:9}}>
-                        <Text style={Styles.title}>{car.brand + " " + car.model}</Text>
-                        <Text style={Styles.text}>Color: {car.color.toUpperCase()}</Text>
-                        <Text style={Styles.text}>Seats: {car.size}</Text>
-                    </View>
-                    <View style={{flex: 1}}>
-                        <Text style={Styles.price}>
+                        <View style={{flex:9}}>
+                        <View style={{paddingBottom: 10}}>
+                            <Text style={Styles.title}>{car.brand}</Text>
+                            <Text style={Styles.model}>{car.model}</Text>
+                        </View>
 
-                        </Text>
+                            <Text style={Styles.text}>Color: {car.color.toUpperCase()}</Text>
+                            <Text style={Styles.text}>Seats: {car.size}</Text>
+                        </View>
+                        <View style={{flex: 1}}>
+                            <Text style={Styles.price}>
+                                ${car.price.toLocaleString("en", { minimumFractionDigits: 0 })}
+                                
+                            </Text>
 
-                    </View>
+                        </View>
                         
 
                     </View>
                 </View>
             </TouchableHighlight>
+
         )
     }
 }
@@ -54,14 +61,14 @@ const Styles = StyleSheet.create({
         flex: 1,
         
         shadowColor: "#000",
-shadowOffset: {
-	width: 0,
-	height: 1,
-},
-shadowOpacity: 0.22,
-shadowRadius: 2.22,
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.22,
+        shadowRadius: 2.22,
 
-elevation: 3,
+        elevation: 3,
 
         
         
@@ -77,8 +84,15 @@ elevation: 3,
         flex: 1,
     },
     title:{
+        fontSize: 15,
+        // color: "dodgerblue",
+        // fontWeight: "bold",
+
+    },
+    model:{
         fontSize: 20,
         fontWeight: "bold",
+        // color: "#4d0000",
 
     },
     text:{
