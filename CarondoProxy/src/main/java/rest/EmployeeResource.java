@@ -9,13 +9,17 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.nimbusds.jose.JOSEException;
+import dto.EmployeeDTO;
 import dto.LoginDTO;
 import entity.Employee;
 import exception.CarondoException;
 import facade.EmployeeFacade;
 import facade.TokenFacade;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.POST;
@@ -23,7 +27,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.SecurityContext;
 
 /**
  * REST Web Service
@@ -67,11 +70,28 @@ public class EmployeeResource {
     public Response createUser(String json) throws CarondoException {
         Employee emp = gson.fromJson(json, Employee.class);
         Employee res = facade.createEmployee(emp);
-        String jsonBack = gson.toJson(res);
+        String jsonBack = gson.toJson(new EmployeeDTO(res));
 
         return Response
                 .status(Response.Status.OK)
                 .entity(jsonBack)
+                .type(MediaType.APPLICATION_JSON)
+                .build();
+    }
+
+    @GET
+    @RolesAllowed("admin")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getEmployees() {
+        List<Employee> empList = facade.getEmployees();
+        List<EmployeeDTO> empDtoList = new ArrayList<>();
+        for (Employee emp : empList) {
+            empDtoList.add(new EmployeeDTO(emp));
+        }
+        String json = gson.toJson(empDtoList);
+        return Response
+                .status(Response.Status.OK)
+                .entity(json)
                 .type(MediaType.APPLICATION_JSON)
                 .build();
     }

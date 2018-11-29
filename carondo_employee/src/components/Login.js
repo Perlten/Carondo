@@ -24,7 +24,7 @@ export default class LoginPage extends Component {
                 <img src={logo} alt="error" style={style.imageStyle} />
                 <div style={style.centerContainer}>
                     <ErrorMessage error={this.state.error} handleDismiss={() => this.setState({error: ""})}/>
-                    <form onKeyUp={this.enterPress}>
+                    <form onKeyUp={this.enterPress} style={style.formInput}>
                         <FormGroup>
                             <ControlLabel>
                                 Email
@@ -35,7 +35,6 @@ export default class LoginPage extends Component {
                                 value={this.state.login.email}
                                 placeholder="Enter Email"
                                 onChange={this.handleChange}
-                                style={style.formInput}
                             />
                         </FormGroup>
                         <FormGroup >
@@ -48,7 +47,6 @@ export default class LoginPage extends Component {
                                 value={this.state.login.password}
                                 placeholder="Enter Password"
                                 onChange={this.handleChange}
-                                style={style.formInput}
                             />
                         </FormGroup>
                         <Button onClick={this.handleSubmit} bsStyle="success">Login</Button>
@@ -100,11 +98,9 @@ function ErrorMessage({error, handleDismiss}) {
 
 const style = {
     formInput: {
-        borderWidth: "2px",
-        borderColor: "black",
-        borderStyle: "solid",
         padding: 4,
-        maxWidth: 250
+        maxWidth: 250,
+        margin: "auto"
     },
     centerContainer: {
         position: 'absolute', left: '50%', top: '50%',
