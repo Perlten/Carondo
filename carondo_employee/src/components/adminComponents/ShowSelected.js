@@ -21,11 +21,10 @@ export default class ShowEmployee extends Component {
         if (!this.props.emp) {
             return <div></div>
         }
-        console.log(this.state);
         return (
             <div>
                 <h2>{this.state.message}</h2>
-                <form>
+                <form onKeyUp={this.enterPress}>
                     <FormGroup>
                         <ControlLabel>
                             Id
@@ -75,6 +74,12 @@ export default class ShowEmployee extends Component {
         );
     }
 
+    enterPress = (e) => {
+        if (e.keyCode === 13) {
+            this.handleSubmit(e);
+        }
+    }
+
     handleChange = (e) => {
         const value = e.target.value;
         const id = e.target.id;
@@ -86,13 +91,13 @@ export default class ShowEmployee extends Component {
     handleSubmit = async (e) => {
         e.preventDefault();
         const emp = this.state.emp;
-        console.log(emp);
         const res = await empFacade.edit(emp);
         if (res.status !== 200) {
             this.setState({ message: res.fullError.errorMessage })
             return;
         }
         this.setState({ message: "Successful!" })
+        this.props.updateEmp(res.emp);
     }
 }
 

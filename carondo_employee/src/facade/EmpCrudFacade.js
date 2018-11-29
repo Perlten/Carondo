@@ -21,8 +21,7 @@ class EmpCrudFacade {
             const opts = makeOptions("PUT", true, emp);
             const res = await fetch(URL + "employee/edit", opts);
             const json = await handleHttpErrors(res);
-            json.status = res.status;
-            return json;
+            return {emp: json, status: res.status};
         } catch (error) {
             return error;
         }
