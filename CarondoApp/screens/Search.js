@@ -5,7 +5,7 @@ import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import Slider from '../components/Slider'
 import SwitchSelector from 'react-native-switch-selector';
 import Color from '../components/Color'
-import { Button , SocialIcon} from 'react-native-elements'
+import { Button } from 'react-native-elements'
 
 export default class Search extends React.Component {
     constructor(props) {
@@ -69,7 +69,7 @@ export default class Search extends React.Component {
 
         return (
             <>
-                <View style={{ flex: 5.5 }}>
+                <View style={{ flex:10 }}>
 
                     <ScrollView >
                         <View style={Styles.container} >
@@ -161,15 +161,18 @@ export default class Search extends React.Component {
                 </View>
 
                 <View style={Styles.container}>
-                    <TouchableHighlight style={Styles.button} onPress={() => this.props.navigation.navigate("Results", {price: this.state.price, seats: this.state.seats, eco: this.state.eco, colors: this.state.selectedColors})}>
+                    {/* <TouchableHighlight style={Styles.button} >
                             <Text style={Styles.buttonText}>
                                 Search
                             </Text>
-                    </TouchableHighlight>
-                    {/* <SocialIcon
-                    title='Search'
-                    button
-                    /> */}
+                    </TouchableHighlight> */}
+                    <Button
+                    raised
+                    large
+                    onPress={() => this.props.navigation.navigate("Results", {price: this.state.price, seats: this.state.seats, eco: this.state.eco, colors: this.state.selectedColors})}
+                    backgroundColor="dodgerblue"
+                    icon={{name: 'search'}}
+                    title='Search' />
                 </View>
 
             </>

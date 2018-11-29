@@ -7,6 +7,7 @@ const Styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
+        paddingBottom: 30,
         alignItems: 'center',
         justifyContent: 'center',
     }, input: {
@@ -32,6 +33,9 @@ const Styles = StyleSheet.create({
         alignSelf: 'stretch',
         width: win.width,
         height: 100
+    },
+    button2:{
+        backgroundColor: "red"
     }
 
 });

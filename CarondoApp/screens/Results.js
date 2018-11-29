@@ -64,6 +64,7 @@ export default class Results extends React.Component {
         <View>
           <SCLAlert
             theme="warning"
+            onRequestClose={this.handleClose}
             show={this.state.show}
             title={error.errorTitle}
             subtitle={error.errorMessage}
