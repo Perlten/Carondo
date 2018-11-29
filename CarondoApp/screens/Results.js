@@ -68,7 +68,7 @@ export default class Results extends React.Component {
             title={error.errorTitle}
             subtitle={error.errorMessage}
           >
-            <SCLAlertButton theme="warning" onPress={this.handleClose}> OK </SCLAlertButton>
+            <SCLAlertButton theme="warning" onPress={this.handleClose}> Go Back </SCLAlertButton>
           </SCLAlert>
         </View>
       )

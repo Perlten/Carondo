@@ -5,10 +5,7 @@ import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import Slider from '../components/Slider'
 import SwitchSelector from 'react-native-switch-selector';
 import Color from '../components/Color'
-import {
-    SCLAlert,
-    SCLAlertButton
-  } from 'react-native-scl-alert'
+import { Button , SocialIcon} from 'react-native-elements'
 
 export default class Search extends React.Component {
     constructor(props) {
@@ -169,6 +166,10 @@ export default class Search extends React.Component {
                                 Search
                             </Text>
                     </TouchableHighlight>
+                    {/* <SocialIcon
+                    title='Search'
+                    button
+                    /> */}
                 </View>
 
             </>
