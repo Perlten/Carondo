@@ -37,6 +37,14 @@ public class Employee implements Serializable {
         this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
+    public Employee(Integer id, String firstName, String lastName, String email, Role role) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.role = role;
+    }
+    
     public boolean verifyLogin(String password) {
         return BCrypt.checkpw(password, this.password);
     }

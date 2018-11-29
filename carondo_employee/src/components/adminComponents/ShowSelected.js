@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import empFacade from './../../facade/EmpCrudFacade';
 
 export default class ShowEmployee extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { emp: this.props.emp };
+        this.state = {
+            emp: this.props.emp,
+            message: ""
+        };
     }
 
     componentWillReceiveProps(nextProps) {
@@ -20,6 +24,7 @@ export default class ShowEmployee extends Component {
         console.log(this.state);
         return (
             <div>
+                <h2>{this.state.message}</h2>
                 <form>
                     <FormGroup>
                         <ControlLabel>
@@ -61,6 +66,9 @@ export default class ShowEmployee extends Component {
                             placeholder="Email"
                             onChange={this.handleChange}
                         />
+                        <ControlLabel>Role</ControlLabel>
+                        <RoleDropDownOptions role={this.state.emp.role} />
+                        <Button onClick={this.handleSubmit}>Edit</Button>
                     </FormGroup>
                 </form>
             </div >
@@ -74,4 +82,32 @@ export default class ShowEmployee extends Component {
         emp[id] = value;
         this.setState({ emp });
     }
+
+    handleSubmit = async (e) => {
+        e.preventDefault();
+        const emp = this.state.emp;
+        const res = await empFacade.edit(emp);
+        if (res.status !== 200) {
+            this.setState({ message: res.fullError.errorMessage })
+            return;
+        }
+        this.setState({ message: "Successful!" })
+    }
+}
+
+function RoleDropDownOptions({ role }) {
+    if (role === "admin") {
+        return (
+            <FormControl componentClass="select" placeholder="Role">
+                <option value="admin" selected>Admin</option>
+                <option value="statistician">Statistician</option>
+            </FormControl>
+        );
+    }
+    return (
+        <FormControl componentClass="select" placeholder="Role">
+            <option value="admin">Admin</option>
+            <option value="statistician" selected>Statistician</option>
+        </FormControl>
+    );
 }
