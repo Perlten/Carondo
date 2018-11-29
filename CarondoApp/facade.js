@@ -1,4 +1,4 @@
-const URI = "https://perlt.net/Carondo/api/cars"
+const URI = "https://corporategroup.dk/Carondo/api/cars"
 
 async function handleHttpErrors(res) {
     if (!res.ok) {
@@ -56,7 +56,7 @@ makeOptions = async (method,body) => {
             const json = await handleHttpErrors(res)
             return json;
         } catch (e) {
-            return e
+            throw e
         }
 
     }

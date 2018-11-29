@@ -5,6 +5,7 @@ import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import Slider from '../components/Slider'
 import SwitchSelector from 'react-native-switch-selector';
 import Color from '../components/Color'
+import { Button , SocialIcon} from 'react-native-elements'
 
 export default class Search extends React.Component {
     constructor(props) {
@@ -14,6 +15,7 @@ export default class Search extends React.Component {
             seats: [2, 6],
             eco: 'all',
             selectedColors: ["red", "blue", "black", "white", "silver", "green"],
+            error: null,
         }
     }
 
@@ -54,6 +56,8 @@ export default class Search extends React.Component {
 
 
     }
+ 
+    
 
     render() {
 
@@ -62,8 +66,6 @@ export default class Search extends React.Component {
             { label: 'Yes', value: 'yes' },
             { label: 'No', value: 'no' }
         ]; 
-
-    
 
         return (
             <>
@@ -158,14 +160,16 @@ export default class Search extends React.Component {
                     </ScrollView>
                 </View>
 
-                <View style={{ flex: 1 }}>
-                    <TouchableHighlight style={Styles.container} onPress={() => this.props.navigation.navigate("Results", {price: this.state.price, seats: this.state.seats, eco: this.state.eco, colors: this.state.selectedColors})}>
-                        <View style={Styles.button}>
+                <View style={Styles.container}>
+                    <TouchableHighlight style={Styles.button} onPress={() => this.props.navigation.navigate("Results", {price: this.state.price, seats: this.state.seats, eco: this.state.eco, colors: this.state.selectedColors})}>
                             <Text style={Styles.buttonText}>
                                 Search
                             </Text>
-                        </View>
                     </TouchableHighlight>
+                    {/* <SocialIcon
+                    title='Search'
+                    button
+                    /> */}
                 </View>
 
             </>
