@@ -5,6 +5,10 @@ import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import Slider from '../components/Slider'
 import SwitchSelector from 'react-native-switch-selector';
 import Color from '../components/Color'
+import {
+    SCLAlert,
+    SCLAlertButton
+  } from 'react-native-scl-alert'
 
 export default class Search extends React.Component {
     constructor(props) {
@@ -14,6 +18,7 @@ export default class Search extends React.Component {
             seats: [2, 6],
             eco: 'all',
             selectedColors: ["red", "blue", "black", "white", "silver", "green"],
+            error: null,
         }
     }
 
@@ -54,6 +59,8 @@ export default class Search extends React.Component {
 
 
     }
+ 
+    
 
     render() {
 
@@ -62,8 +69,6 @@ export default class Search extends React.Component {
             { label: 'Yes', value: 'yes' },
             { label: 'No', value: 'no' }
         ]; 
-
-    
 
         return (
             <>

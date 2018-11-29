@@ -2,6 +2,11 @@ import React, { createContext } from "react";
 import { StyleSheet,Image, Text, View, TouchableHighlight, ScrollView, Dimensions } from "react-native";
 import Facade from "../facade";
 import CarResult from "../components/CarResult";
+import {
+  SCLAlert,
+  SCLAlertButton
+} from 'react-native-scl-alert'
+
 
 export default class Results extends React.Component {
   constructor(props) {
@@ -9,7 +14,8 @@ export default class Results extends React.Component {
 
     this.state = {
       results: null,
-      error: null
+      error: null,
+      show: true,
     }
   }
   async componentDidMount(){
@@ -21,7 +27,7 @@ export default class Results extends React.Component {
     const max_price = nav.getParam("price")[1];
     const eco = nav.getParam("eco");
     
-    try{
+  try{
     const results = await Facade.fetchCars(min_seats, max_seats, colors, min_price, max_price, eco)
     this.setState({results})  
   }catch(e){
@@ -39,18 +45,35 @@ export default class Results extends React.Component {
 
     }
 
-    
+    this.setState({show: true})
+  }
+
+  handleOpen = () => {
+    this.setState({ show: true })
+  }
+
+  handleClose = () => {
+    this.setState({ show: false })
+    this.props.navigation.navigate("Search")
   }
 
   render() {
-
-    if(this.state.error){
+    const error = this.state.error
+    if(error){
       return(
-      <View>
-        <Text>{this.state.error.errorTitle}</Text>
-        <Text>{this.state.error.errorMessage}</Text>
-      </View>
-);
+        <View>
+          <SCLAlert
+            theme="warning"
+            show={this.state.show}
+            title={error.errorTitle}
+            subtitle={error.errorMessage}
+          >
+            <SCLAlertButton theme="warning" onPress={this.handleClose}> OK </SCLAlertButton>
+          </SCLAlert>
+        </View>
+      )
+
+      
     }
 
 
@@ -85,6 +108,12 @@ export default class Results extends React.Component {
 const win = Dimensions.get("window")
 
 const Styles = StyleSheet.create({
+  alertContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   container: {
     flex:1,
     // width: 30,
