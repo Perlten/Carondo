@@ -1,4 +1,4 @@
-const URI = "https://corporategroup.dk/Carondo/api/cars"
+const URI = "https://perlt.net/Carondo/api/cars"
 
 async function handleHttpErrors(res) {
     if (!res.ok) {
