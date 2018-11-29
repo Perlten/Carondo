@@ -1,6 +1,7 @@
 import React from "react";
-import {Dimensions, StyleSheet, Text, View, TouchableHighlight, ScrollView , Button, Image} from "react-native";
-
+import {Dimensions, StyleSheet, Text, View, TouchableHighlight, ScrollView , Image} from "react-native";
+import MyNav from '../components/MyNav'
+import { Button } from 'react-native-elements'
 
 export default class CarView extends React.Component{
     constructor(props){
@@ -35,13 +36,27 @@ export default class CarView extends React.Component{
             </View>
             
 
-            <View style={Styles.container}>
-                <TouchableHighlight style={Styles.button} onPress={() => this.props.navigation.navigate("WebView", {url: car.purchaseURL})}>
+            {/* <View style={Styles.container}>
+                <TouchableHighlight style={Styles.button} >
                     <Text style={Styles.buttonText}>
                         Go to site
                     </Text>
                 </TouchableHighlight>
-            </View>
+            </View> */}
+
+            <View style={Styles.container2}>
+                            <View style={Styles.container3}>
+                                <Button
+                                    raised
+                                    large
+                                    onPress={() => this.props.navigation.navigate("WebView", {url: car.purchaseURL})}
+                                    backgroundColor="green"
+                                    // icon={{name: ''}}
+                                    title='Go To Site' />
+                            </View>
+                           
+                        </View>
+            <MyNav {...this.props}/>
             </>
 
             
@@ -103,6 +118,13 @@ const Styles = StyleSheet.create({
         paddingTop: 20,
         paddingBottom: 15,
 
+    },
+    container2: {
+        justifyContent: 'flex-end',
+    },
+    container3: {
+        alignSelf: 'center',
+        paddingBottom: 25,
     },
 })
 

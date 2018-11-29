@@ -6,6 +6,7 @@ import {
   SCLAlert,
   SCLAlertButton
 } from 'react-native-scl-alert'
+import MyNav from '../components/MyNav'
 
 
 export default class Results extends React.Component {
@@ -89,17 +90,20 @@ export default class Results extends React.Component {
 
       return (
       <View style={{backgroundColor: "#f1f1f1"}}>
+
         <ScrollView>
         {list}
         </ScrollView>
+        <MyNav {...this.props}/>
+
       </View>
       );
     }
     return (
       <>
       <View style={Styles.container}>
-      <Image style={Styles.image} source={require('../pics/loading.gif')}/>
-
+      <Image  source={require('../pics/loading.gif')}/>
+      <MyNav {...this.props}/>
       </View>
       </>
       );
@@ -123,7 +127,7 @@ const Styles = StyleSheet.create({
       justifyContent: 'center',
   },
   image:{
-    // width: 100,
-    // height: 250
+    width: 30,
+    height: 30,
   }
 });
