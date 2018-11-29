@@ -86,6 +86,7 @@ export default class ShowEmployee extends Component {
     handleSubmit = async (e) => {
         e.preventDefault();
         const emp = this.state.emp;
+        console.log(emp);
         const res = await empFacade.edit(emp);
         if (res.status !== 200) {
             this.setState({ message: res.fullError.errorMessage })
@@ -99,7 +100,7 @@ function RoleDropDownOptions({ role }) {
     if (role === "admin") {
         return (
             <FormControl componentClass="select" placeholder="Role">
-                <option value="admin" selected>Admin</option>
+                <option defaultValue="admin" >Admin</option>
                 <option value="statistician">Statistician</option>
             </FormControl>
         );
@@ -107,7 +108,7 @@ function RoleDropDownOptions({ role }) {
     return (
         <FormControl componentClass="select" placeholder="Role">
             <option value="admin">Admin</option>
-            <option value="statistician" selected>Statistician</option>
+            <option defaultValue="statistician">Statistician</option>
         </FormControl>
     );
 }
