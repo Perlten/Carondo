@@ -6,6 +6,7 @@ import callable.PerltConverter;
 import callable.RasmusConverter;
 import callable.SwApiConverter;
 import dto.CarDTO;
+import exception.CarondoException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -17,7 +18,7 @@ import java.util.concurrent.Future;
 public class ProxyFacade {
 
     public List<CarDTO> getCars(String color, String eco, int minSize,
-            int maxSize, int minPrice, int maxPrice) throws InterruptedException, ExecutionException {
+            int maxSize, int minPrice, int maxPrice) throws InterruptedException, ExecutionException, CarondoException {
         ExecutorService pool = Executors.newFixedThreadPool(2);
 
         List<Future<List<CarDTO>>> futures = new ArrayList();
@@ -37,6 +38,10 @@ public class ProxyFacade {
         List<CarDTO> cars = new ArrayList();
         for (Future<List<CarDTO>> f : futures) {
             cars.addAll(f.get());
+        }
+        
+        if(cars.isEmpty()){
+            throw new CarondoException("No Cars Found!", "The given search criterias returned 0 results.");
         }
         return cars;
     }
