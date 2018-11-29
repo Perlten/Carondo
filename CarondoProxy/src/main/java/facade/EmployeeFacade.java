@@ -9,7 +9,7 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 public class EmployeeFacade {
-    
+
     private EntityManagerFactory emf;
 
     public EmployeeFacade() {
@@ -28,9 +28,11 @@ public class EmployeeFacade {
             q.setParameter("email", email);
             Employee emp = q.getSingleResult();
             return emp;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new CarondoException("Could not find employee", "Could not find the given employee");
-        } finally {
+        }
+        finally {
             em.close();
         }
     }
@@ -42,7 +44,8 @@ public class EmployeeFacade {
             if (emp.verifyLogin(password)) {
                 return emp;
             }
-        } finally {
+        }
+        finally {
             em.close();
         }
         throw new CarondoException("Login Error", "Could not login with the given email and password");
@@ -55,9 +58,11 @@ public class EmployeeFacade {
             em.getTransaction().begin();
             em.persist(emp);
             em.getTransaction().commit();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new CarondoException("Could not create employee", "Could not create employee");
-        } finally {
+        }
+        finally {
             em.close();
         }
         return emp;
@@ -72,9 +77,28 @@ public class EmployeeFacade {
             emp.setPassword(e.getPassword());
             em.merge(emp);
             em.getTransaction().commit();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new CarondoException("Could not update employee", "Could not update employee");
-        } finally {
+        }
+        finally {
+            em.close();
+        }
+        return emp;
+    }
+
+    public Employee deleteEmployee(Employee emp) throws CarondoException {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Employee e = em.find(Employee.class, emp.getId());
+            em.remove(e);
+            em.getTransaction().commit();
+        }
+        catch (Exception e) {
+            throw new CarondoException("Could not delete employee", "Could not delete employee");
+        }
+        finally {
             em.close();
         }
         return emp;
@@ -85,7 +109,8 @@ public class EmployeeFacade {
         try {
             TypedQuery<Employee> q = em.createQuery("SELECT e FROM Employee e", Employee.class);
             return q.getResultList();
-        } finally {
+        }
+        finally {
             em.close();
         }
     }

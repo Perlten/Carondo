@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import facade from "./../../facade/LoginFacade"
+import { FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 
 export default class CreateUser extends Component {
     constructor() {
@@ -11,38 +12,86 @@ export default class CreateUser extends Component {
     }
 
     render() {
-        const { firstName, lastName, email, password } = this.state.create;
-        const isEnabled =
-            firstName.length > 0 && lastName.length > 0 && email.length > 0 && email.includes("@") && password.length > 0;
         return (
             <div>
-                <h1>Admin page!</h1>
+                <h1>Create user</h1>
                 <h2 style={{ color: "red" }}>{this.state.message}</h2>
-                <form onSubmit={this.handleSubmit}>
-                    <input id="firstName" placeholder="First name" onChange={this.handleChange} value={this.state.create.firstName} />
+                <form>
+                    <FormGroup>
+                        <ControlLabel>
+                            First name
+                        </ControlLabel>
+                        <FormControl
+                            id="firstName"
+                            type="text"
+                            value={this.state.create.firstName}
+                            placeholder="First name"
+                            onChange={this.handleChange}
+                        />
+                        <ControlLabel>
+                            Last name
+                        </ControlLabel>
+                        <FormControl
+                            id="lastName"
+                            type="text"
+                            value={this.state.create.lastName}
+                            placeholder="Last name"
+                            onChange={this.handleChange}
+                        />
+                        <ControlLabel>
+                            Email
+                        </ControlLabel>
+                        <FormControl
+                            id="email"
+                            type="email"
+                            value={this.state.create.email}
+                            placeholder="Email"
+                            onChange={this.handleChange}
+                        />
+                        <ControlLabel>
+                            Password
+                        </ControlLabel>
+                        <FormControl
+                            id="password"
+                            type="password"
+                            value={this.state.create.password}
+                            placeholder="Password"
+                            onChange={this.handleChange}
+                        />
+                        <ControlLabel>Role</ControlLabel>
+                        <FormControl componentClass="select" placeholder="Role">
+                            <option defaultValue="admin" >Admin</option>
+                            <option value="statistician">Statistician</option>
+                        </FormControl>
+                    </FormGroup>
+                    <Button bsStyle="success" onClick={this.handleSubmit}>Register</Button>
+                </form>
+
+                {/* <form onSubmit={this.handleSubmit}>
+                    <input required id="firstName" placeholder="First name" onChange={this.handleChange} value={this.state.create.firstName} />
                     <br />
-                    <input id="lastName" placeholder="Last name" onChange={this.handleChange} value={this.state.create.lastName} />
+                    <input required id="lastName" placeholder="Last name" onChange={this.handleChange} value={this.state.create.lastName} />
                     <br />
-                    <input id="email" placeholder="Email" onChange={this.handleChange} value={this.state.create.email} />
+                    <input required id="email" type="email" placeholder="Email" onChange={this.handleChange} value={this.state.create.email} />
                     <br />
-                    <input id="password" placeholder="Password" onChange={this.handleChange} value={this.state.create.password} />
+                    <input required id="password" type="password" placeholder="Password" onChange={this.handleChange} value={this.state.create.password} />
                     <br />
                     <label>
-                        <input id="role" type="radio" value="admin"
+                        <input name="role" type="radio" value="admin"
                             checked={this.state.create.role === "admin"}
                             onChange={this.handleChange} />
                         Admin
                     </label>
                     <br />
                     <label>
-                        <input id="role" type="radio" value="statistician"
+                        <input name="role" type="radio" value="statistician"
                             checked={this.state.create.role === "statistician"}
                             onChange={this.handleChange} />
                         Statistician
                     </label>
                     <br />
-                    <button disabled={!isEnabled}>Register</button>
-                </form>
+                    <button>Register</button>
+                </form> */}
             </div>
         );
     }
@@ -51,19 +100,21 @@ export default class CreateUser extends Component {
         e.preventDefault();
         const body = this.state.create
         const res = await facade.create(body);
-        console.log(res);
         if (res.status !== 200) {
             this.setState({ message: res.fullError.errorMessage })
             return;
         }
-        this.setState({message: "Successful!"})
+        this.setState({ message: "Successful!" })
     }
 
 
     handleChange = (e) => {
         const value = e.target.value;
-        const id = e.target.id;
+        let id = e.target.id;
         const create = this.state.create
+        if (id === "") {
+            id = e.target.name
+        }
         create[id] = value;
         this.setState({ create });
     }

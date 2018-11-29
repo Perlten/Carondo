@@ -25,8 +25,10 @@ function CreateEmpPanels({ emp, selectEmp }) {
     const res = emp.map((element) => {
         return (
             <Panel key={element.id} >
-                <Panel.Body>{`${element.firstName} ${element.lastName} `}
-                <Button bsStyle="success" onClick={() => selectEmp(element)}> Edit</Button> </Panel.Body>
+                <Panel.Body>
+                    <Button bsStyle="info" onClick={() => selectEmp(element)}>Information</Button>{' '}
+                    {`${element.firstName} ${element.lastName}`}
+                </Panel.Body>
             </Panel>
         );
     });

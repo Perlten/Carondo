@@ -23,7 +23,8 @@ export default class ShowEmployee extends Component {
         }
         return (
             <div>
-                <h2>{this.state.message}</h2>
+                <h1>User information:</h1>
+                <h2 style={{ color: "red" }}>{this.state.message}</h2>
                 <form onKeyUp={this.enterPress}>
                     <FormGroup>
                         <ControlLabel>
@@ -44,6 +45,7 @@ export default class ShowEmployee extends Component {
                             value={this.state.emp.firstName}
                             placeholder="First name"
                             onChange={this.handleChange}
+                            required
                         />
                         <ControlLabel>
                             Last name
@@ -54,6 +56,7 @@ export default class ShowEmployee extends Component {
                             value={this.state.emp.lastName}
                             placeholder="Last name"
                             onChange={this.handleChange}
+                            required
                         />
                         <ControlLabel>
                             Email
@@ -64,11 +67,13 @@ export default class ShowEmployee extends Component {
                             value={this.state.emp.email}
                             placeholder="Email"
                             onChange={this.handleChange}
+                            required
                         />
                         <ControlLabel>Role</ControlLabel>
                         <RoleDropDownOptions role={this.state.emp.role} />
-                        <Button onClick={this.handleSubmit}>Edit</Button>
                     </FormGroup>
+                    <Button bsStyle="warning" onClick={this.handleSubmit}>Edit</Button>{' '}
+                    <Button bsStyle="danger" onClick={this.handleDelete}>Delete</Button>
                 </form>
             </div >
         );
@@ -98,6 +103,18 @@ export default class ShowEmployee extends Component {
         }
         this.setState({ message: "Successful!" })
         this.props.updateEmp(res.emp);
+    }
+
+    handleDelete = async (e) => {
+        e.preventDefault()
+        const emp = this.state.emp
+        const res = await empFacade.delete(emp)
+        if (res.status !== 200) {
+            this.setState({ message: res.fullError.errorMessage })
+            return;
+        }
+        this.setState({ message: "User deleted!" })
+        this.props.deleteEmp(res.emp)
     }
 }
 
