@@ -48,6 +48,12 @@ public class Employee implements Serializable {
     public boolean verifyLogin(String password) {
         return BCrypt.checkpw(password, this.password);
     }
+    
+    public static void hashPW(Employee emp){
+        String pw = emp.getPassword();
+        String hash = BCrypt.hashpw(pw, BCrypt.gensalt());
+        emp.setPassword(hash);
+    }
 
     public String getFirstName() {
         return firstName;
@@ -67,6 +73,14 @@ public class Employee implements Serializable {
 
     public Integer getId() {
         return id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setFirstName(String firstName) {
