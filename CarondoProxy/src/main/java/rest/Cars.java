@@ -17,7 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("cars")
-public class ProxyResource {
+public class Cars {
 
     private ProxyFacade facade;
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -25,7 +25,7 @@ public class ProxyResource {
     @Context
     private UriInfo context;
 
-    public ProxyResource() {
+    public Cars() {
         facade = new ProxyFacade();
     }
 
