@@ -25,74 +25,72 @@ public class JesperConverter extends SharedProps implements Callable<List<CarDTO
 
     @Override
     public List<CarDTO> call() throws Exception {
-        
-        
-        if(!color.equals("all")){
-            checkIfFirst();
-            reqUrl += "color=" + color;
-        }
-        
-        if (eco.equals("yes")) {
-            checkIfFirst();
-            reqUrl += "eco=1";
-        } else if (eco.equals("no")) {
-            checkIfFirst();
-            reqUrl += "eco=2";
-        }
-        checkIfFirst();
-        reqUrl += "minprice=" + minPrice;
-        checkIfFirst();
-        reqUrl += "maxprice=" + maxPrice;
-        checkIfFirst();
-        reqUrl += "minsize=" + minSize;
-        checkIfFirst();
-        reqUrl += "maxsize=" + maxSize;
-        String jsonRes = new URLRequest().request(reqUrl);
-        System.out.println(jsonRes);
-
-        JsonElement jelem = gson.fromJson(jsonRes, JsonElement.class);
-        JsonArray arr = jelem.getAsJsonArray();
-
-        List<CarDTO> carList = new ArrayList();
-
-        for (JsonElement j : arr) {
-            int price = getFieldValueAsInt(j, "price");
-            String color = getFieldValueAsString(j, "color");
-            int size = getFieldValueAsInt(j, "size");
-            String image = getFieldValueAsString(j, "image");
-
-            JsonElement manObject = getFieldValueAsJsonObject(j, "Manufacturer");
-            String name = getFieldValueAsString(manObject, "name");
-            String model = getFieldValueAsString(manObject, "model");
-
-            CarDTO car = new CarDTO(name, model, price, color, size, image, image);
-
-            JsonArray extraArr = j.getAsJsonObject().get("extras").getAsJsonArray();
-
-
-            for (JsonElement jsonElement : extraArr) {
-                String label = getFieldValueAsString(jsonElement, "label");
-                String value = getFieldValueAsString(jsonElement, "value");
-                car.extra.add(new CarExtraDTO(label, value));
+        try {
+            if (!color.equals("all")) {
+                checkIfFirst();
+                reqUrl += "color=" + color;
             }
 
-            carList.add(car);
+            if (eco.equals("yes")) {
+                checkIfFirst();
+                reqUrl += "eco=1";
+            } else if (eco.equals("no")) {
+                checkIfFirst();
+                reqUrl += "eco=2";
+            }
+            checkIfFirst();
+            reqUrl += "minprice=" + minPrice;
+            checkIfFirst();
+            reqUrl += "maxprice=" + maxPrice;
+            checkIfFirst();
+            reqUrl += "minsize=" + minSize;
+            checkIfFirst();
+            reqUrl += "maxsize=" + maxSize;
+            String jsonRes = new URLRequest().request(reqUrl);
+            System.out.println(jsonRes);
 
+            JsonElement jelem = gson.fromJson(jsonRes, JsonElement.class);
+            JsonArray arr = jelem.getAsJsonArray();
+
+            List<CarDTO> carList = new ArrayList();
+
+            for (JsonElement j : arr) {
+                int price = getFieldValueAsInt(j, "price");
+                String color = getFieldValueAsString(j, "color");
+                int size = getFieldValueAsInt(j, "size");
+                String image = getFieldValueAsString(j, "image");
+
+                JsonElement manObject = getFieldValueAsJsonObject(j, "Manufacturer");
+                String name = getFieldValueAsString(manObject, "name");
+                String model = getFieldValueAsString(manObject, "model");
+
+                CarDTO car = new CarDTO(name, model, price, color, size, image, image);
+
+                JsonArray extraArr = j.getAsJsonObject().get("extras").getAsJsonArray();
+
+                for (JsonElement jsonElement : extraArr) {
+                    String label = getFieldValueAsString(jsonElement, "label");
+                    String value = getFieldValueAsString(jsonElement, "value");
+                    car.extra.add(new CarExtraDTO(label, value));
+                }
+
+                carList.add(car);
+
+            }
+
+            return carList;
+        } catch (Exception e) {
+            return new ArrayList();
         }
-
-        return carList;
-
     }
-    
-    public void checkIfFirst(){
-        if(first){
+
+    public void checkIfFirst() {
+        if (first) {
             first = false;
             reqUrl += "?";
         }
         reqUrl += "&";
-            
-        
+
     }
 
-  
 }
