@@ -20,11 +20,21 @@ export default class AdminPage extends Component {
                     <Row>
                         <Col md={4} xs={4}>
                             <h1>Admin page</h1>
-                            <ShowEmployees empList={this.state.empList} selectEmp={this.selectEmp} fetchEmployees={this.fetchEmployees} />
+                            <ShowEmployees
+                                empList={this.state.empList}
+                                selectEmp={this.selectEmp}
+                                fetchEmployees={this.fetchEmployees}
+                                size={this.state.empList.length}
+                            />
+
                             <CreateUser fetchEmp={this.fetchEmployees} />
                         </Col>
                         <Col md={6} xs={6} mdOffset={2}>
-                            <ShowSelected emp={this.state.selectedEmp} updateEmp={this.updateEmployees} deleteEmp={this.deleteEmployee} />
+                            <ShowSelected
+                                emp={this.state.selectedEmp}
+                                updateEmp={this.updateEmployees}
+                                deleteEmp={this.deleteEmployee}
+                            />
                         </Col>
                     </Row>
                 </Grid>
