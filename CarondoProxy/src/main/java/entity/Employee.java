@@ -1,5 +1,6 @@
 package entity;
 
+import exception.CarondoException;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -18,10 +19,12 @@ public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(nullable = false)
     private String firstName, lastName;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Role role;
     @Column(nullable = false)
     private String password;
@@ -29,11 +32,14 @@ public class Employee implements Serializable {
     public Employee() {
     }
 
-    public Employee(String firstName, String lastName, String email, String password, Role role) {
+    public Employee(String firstName, String lastName, String email, String password, Role role) throws CarondoException {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.role = role;
+        if (password == null || password.equals("")) {
+            throw new CarondoException(400, "Invalid password", "Invalid password");
+        }
         this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
@@ -44,13 +50,17 @@ public class Employee implements Serializable {
         this.email = email;
         this.role = role;
     }
-    
+
     public boolean verifyLogin(String password) {
         return BCrypt.checkpw(password, this.password);
     }
-    
-    public static void hashPW(Employee emp){
-        String pw = emp.getPassword();
+
+    public static void hashPW(Employee emp) throws CarondoException {
+        String password = emp.getPassword();
+        if (password == null || password.equals("")) {
+            throw new CarondoException(400, "Invalid password", "Invalid password");
+        }
+        String pw = password;
         String hash = BCrypt.hashpw(pw, BCrypt.gensalt());
         emp.setPassword(hash);
     }
@@ -143,6 +153,5 @@ public class Employee implements Serializable {
         }
         return true;
     }
-    
-    
+
 }

@@ -31,7 +31,7 @@ public class LoginFacadeTest {
     private Employee emp4;
 
     @Before
-    public void setUp() {
+    public void setUp() throws CarondoException {
         emp1 = new Employee("Nikolai", "Perlt", "Perlt@gmail.com", "admin", Role.admin);
         emp2 = new Employee("Ralle", "Wauw", "WauwWauwWauw@gmail.com", "test", Role.statistician);
         emp3 = new Employee("Jesper", "Jeppe", "enig@gmail.com", "hej", Role.statistician);

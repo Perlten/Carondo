@@ -7,16 +7,17 @@ export default class CreateUser extends Component {
         super()
         this.state = {
             create: { firstName: "", lastName: "", email: "", password: "", role: "admin" },
-            message: ""
+            message: "",
+            toggle: false
         }
     }
 
     render() {
         return (
             <div>
-                <Panel>
+                <Panel onToggle={() => "TEST"} expanded={this.state.toogle}>
                     <Panel.Heading>
-                        <Panel.Title toggle>
+                        <Panel.Title onClick={this.toggleCollapse}>
                             <strong>Create User</strong>
                         </Panel.Title>
                         <Panel.Collapse>
@@ -90,6 +91,14 @@ export default class CreateUser extends Component {
         }
         this.props.fetchEmp();
         this.setState({ message: "Successful!" })
+        const create = { firstName: "", lastName: "", email: "", password: "", role: "admin" };
+        this.setState({create});
+        this.toggleCollapse();
+        
+    }
+
+    toggleCollapse = () => {
+        this.setState({toogle: !this.state.toogle});
     }
 
 
