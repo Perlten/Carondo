@@ -18,6 +18,7 @@
     "react-native-elements": "^0.19.1",
     "react-native-scl-alert": "^1.2.1",
     "react-native-switch-selector": "^1.1.10",
+    "react-native-vector-icons": "^6.1.0",
     "react-navigation": "^3.0.0"
   },
   "devDependencies": {

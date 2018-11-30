@@ -1,6 +1,8 @@
 import React, { createContext } from "react";
 import {Image, StyleSheet} from 'react-native'
-import NB, { Container, Header, Icon, Button, Fab } from 'native-base';
+import NB, { Container, Header, Button, Fab } from 'native-base';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
 export default class MyNav extends React.Component{
     constructor(props){
         super(props)
@@ -13,7 +15,7 @@ export default class MyNav extends React.Component{
                 position="bottomRight"
                 onPress={() => this.props.navigation.navigate("Search")}>
                 
-                <Image style={Styles.image} source={require("../pics/research.png")} />
+                <Icon name="youtube-searched-for"/>
               </Fab>
         )
     }

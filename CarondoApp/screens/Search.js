@@ -14,6 +14,8 @@ import SwitchSelector from "react-native-switch-selector";
 import Color from "../components/Color";
 import { Button } from "react-native-elements";
 import { Container, Header, Content, Card, CardItem, Body , Fab} from "native-base";
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
 
 export default class Search extends React.Component {
   constructor(props) {
@@ -70,7 +72,7 @@ export default class Search extends React.Component {
 
     return (
       <>
-        <View style={{ flex: 10 }}>
+        <View style={{ flex: 1 }}>
           <ScrollView>
             <View style={Styles.container}>
             <View style={{paddingBottom:10}}>
@@ -200,7 +202,7 @@ export default class Search extends React.Component {
                   })
                 }>
                 
-                <Image style={Styles.search} source={require("../pics/search.png")} />
+                <Icon name="search"/>
               </Fab>
           {/* <View style={Styles.container2}>
             <View style={Styles.container3}>
