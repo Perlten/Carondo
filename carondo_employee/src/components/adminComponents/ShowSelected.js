@@ -131,7 +131,7 @@ function RoleDropDownOptions({ role, handleChange }) {
         <DropdownButton
             bsStyle="primary"
             bsSize="small"
-            title={role}
+            title={role.charAt(0).toUpperCase() + role.slice(1)}
             id="role"
             onSelect={handleChange}
         >
