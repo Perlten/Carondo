@@ -10,8 +10,8 @@ export default class App extends Component {
       <div>
         <Switch>
           <Route exact path="/" render={(props) => <Login {...props} />} />
-          <Route path="/adminPage" render={() => <AdminPage />} />
-          <Route path="/statisticianPage" render={() => <StatisticianPage />} />
+          <Route path="/adminPage" render={(props) => <AdminPage {...props} />} />
+          <Route path="/statisticianPage" render={(props) => <StatisticianPage {...props} />} />
         </Switch>
       </div >
     );

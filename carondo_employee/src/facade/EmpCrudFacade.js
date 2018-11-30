@@ -31,7 +31,6 @@ class EmpCrudFacade {
         try {
             const opts = makeOptions("DELETE", true, emp)
             const res = await fetch(URL + "employee/delete", opts)
-            console.log(res);
             const json = await handleHttpErrors(res)
             return { emp: json, status: res.status }
         } catch (error) {
