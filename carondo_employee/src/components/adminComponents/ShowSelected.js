@@ -93,7 +93,6 @@ export default class ShowEmployee extends Component {
         const emp = this.state.emp
         emp[id] = value;
         this.setState({ emp, message: "" });
-        console.log(this.state.emp)
     }
 
     handleSubmit = async (e) => {

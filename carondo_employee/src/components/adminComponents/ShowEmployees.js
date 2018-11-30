@@ -9,7 +9,6 @@ export default class ShowEmployees extends Component {
     }
 
     render() {
-        console.log(this.props.size);
         const { start, end } = this.state;
         return (
             <div>
@@ -46,7 +45,7 @@ function PaginationButtons({ back, next, start, end, size }) {
     return (
         <div style={{ width: 200, margin: "auto" }}>
             <Button disabled={start === 0} onClick={back} bsStyle="primary">Back</Button>
-            <Button disabled={end >= size} onClick={next} style={{ float: "right" }} bsStyle="primary">Next</Button>
+            <Button disabled={end + 1 >= size} onClick={next} style={{ float: "right" }} bsStyle="primary">Next</Button>
         </div>
     );
 }
