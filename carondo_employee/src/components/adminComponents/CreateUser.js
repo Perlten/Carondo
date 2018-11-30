@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import facade from "./../../facade/LoginFacade"
-import { FormGroup, FormControl, ControlLabel, Button, Panel } from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel, Button, Panel, Alert } from 'react-bootstrap';
 
 export default class CreateUser extends Component {
     constructor() {
@@ -22,7 +22,7 @@ export default class CreateUser extends Component {
                         <Panel.Collapse>
                             <Panel.Body>
                                 <h1>Create user</h1>
-                                <h2 style={{ color: "red" }}>{this.state.message}</h2>
+                                <ErrorMessage error={this.state.message} handleDismiss={() => this.setState({ message: "" })} />
                                 <form>
                                     <FormGroup>
                                         <ControlLabel>
@@ -102,6 +102,17 @@ export default class CreateUser extends Component {
             id = e.target.name
         }
         create[id] = value;
-        this.setState({ create });
+        this.setState({ create, message: "" });
     }
+}
+
+function ErrorMessage({ error, handleDismiss }) {
+    if (error) {
+        return (
+            <Alert bsStyle="danger" onDismiss={handleDismiss}><strong>{error}</strong> </Alert>
+        );
+    }
+    return (
+        <div></div>
+    );
 }
