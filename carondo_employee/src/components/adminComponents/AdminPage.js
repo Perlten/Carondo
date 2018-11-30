@@ -5,6 +5,7 @@ import ShowEmployees from "./ShowEmployees"
 import { Grid, Row, Col, PageHeader, Image, Button } from 'react-bootstrap';
 import empFacade from './../../facade/EmpCrudFacade';
 import logo from "./../../resources/logo.png"
+import LogoutButton from './../LogoutButton';
 
 
 export default class AdminPage extends Component {
@@ -17,8 +18,9 @@ export default class AdminPage extends Component {
     render() {
         return (
             <div style={{ marginLeft: 20, marginRight: 20 }}>
+                <LogoutButton history={this.props.history} style={{ float: "right", marginRight: 40 }} />
                 <PageHeader>
-                    <Image style={{ width: 310, height: 110 }} src={logo} />
+                    <Image style={{ width: 310, height: 110, }} src={logo} />
                     {' '}- ADMIN PANEL INTERFACE
                 </PageHeader>
                 <Grid>

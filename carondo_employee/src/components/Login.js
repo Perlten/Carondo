@@ -7,11 +7,10 @@ import logo from './../resources/logo.png';
 export default class LoginPage extends Component {
     constructor(props) {
         super(props);
-        console.log(props);
         this.state = {
             login: {
                 email: "jesper@gmail.com",
-                password: "addmin"
+                password: "admin"
             },
             error: "",
         }
