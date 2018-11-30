@@ -13,9 +13,17 @@ export default class ShowEmployees extends Component {
         const { start, end } = this.state;
         return (
             <div>
-                <CreateEmpPanels start={start} end={end} emp={this.props.empList} selectEmp={this.props.selectEmp} />
-                <PaginationButtons next={this.pagiNext} back={this.pagiBack} start={start} end={end} size={this.props.size} />
-                <br />
+                <Panel bsStyle="primary">
+                    <Panel.Heading>
+                        <Panel.Title componentClass="h3">Employees</Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body>
+                        <CreateEmpPanels start={start} end={end} emp={this.props.empList} selectEmp={this.props.selectEmp} />
+                    </Panel.Body>
+                    <Panel.Footer>
+                        <PaginationButtons next={this.pagiNext} back={this.pagiBack} start={start} end={end} size={this.props.size} />
+                    </Panel.Footer>
+                </Panel>
             </div>
         );
     }
@@ -49,13 +57,12 @@ function CreateEmpPanels({ emp, selectEmp, start, end }) {
             <div></div>
         );
     }
-    console.log(start + " " + end)
     const res = emp.map((element, index) => {
         if (index >= start && index <= end) {
             return (
                 <Panel key={index} >
                     <Panel.Body>
-                        <Button bsStyle="info" onClick={() => selectEmp(element)}>Information</Button>{' '}
+                        <Button bsStyle="primary" onClick={() => selectEmp(element)}>Information</Button>{' '}
                         {`${element.firstName} ${element.lastName}`}
                     </Panel.Body>
                 </Panel>

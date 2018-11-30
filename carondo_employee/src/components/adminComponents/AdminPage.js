@@ -27,9 +27,9 @@ export default class AdminPage extends Component {
                                 size={this.state.empList.length}
                             />
 
-                            <CreateUser fetchEmp={this.fetchEmployees} />
                         </Col>
                         <Col md={6} xs={6} mdOffset={2}>
+                            <CreateUser fetchEmp={this.fetchEmployees} />
                             <ShowSelected
                                 emp={this.state.selectedEmp}
                                 updateEmp={this.updateEmployees}

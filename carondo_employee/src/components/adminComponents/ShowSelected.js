@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FormGroup, FormControl, ControlLabel, Button, DropdownButton, MenuItem } from 'react-bootstrap';
 import empFacade from './../../facade/EmpCrudFacade';
-import carImg from './../../resources/car.jpg';
+import carImg from './../../resources/car.png';
 
 export default class ShowEmployee extends Component {
 
