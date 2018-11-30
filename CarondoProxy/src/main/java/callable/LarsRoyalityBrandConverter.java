@@ -9,7 +9,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import dto.CarDTO;
 import dto.CarExtraDTO;
-import exception.CarondoException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;

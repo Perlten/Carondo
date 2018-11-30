@@ -3,6 +3,7 @@ import {Dimensions, StyleSheet, Text, View, TouchableHighlight, ScrollView , Ima
 import MyNav from '../components/MyNav'
 import { Button } from 'react-native-elements'
 import { Container, Header, Content, Card, CardItem, Body , Fab, Badge, Right, Left} from "native-base";
+import Icon from 'react-native-vector-icons/Entypo';
 
 export default class CarView extends React.Component{
     constructor(props){
@@ -15,10 +16,10 @@ export default class CarView extends React.Component{
         )
         return(
             <>
-            <View style={{flex:5.5}}>
+            <View style={{flex:10}}>
                 <ScrollView>
                     {/* <Text>{JSON.stringify(car)}</Text> */}
-                    <View>
+                    <View style={{marginBottom: 100}}>
                         <View style={Styles.centered}>
                         <Card>
                             <CardItem>
@@ -69,27 +70,43 @@ export default class CarView extends React.Component{
                 </ScrollView>
             </View>
             
-
-            {/* <View style={Styles.container}>
-                <TouchableHighlight style={Styles.button} >
+            
+            <View style={Styles.container}>
+                <TouchableHighlight 
+                style={Styles.button} 
+                underlayColor="#539141"
+                activeOpacity={20}
+                onPress={() => this.props.navigation.navigate("WebView", {url: car.purchaseURL})}
+                >
+                <View>
                     <Text style={Styles.buttonText}>
-                        Go to site
+                    <Icon name="shop" size={25}/> Go To Shop
                     </Text>
+                </View>
+                   
                 </TouchableHighlight>
-            </View> */}
+            </View> 
 
-            <View style={Styles.container2}>
-                            <View style={Styles.container3}>
+            {/* <View style={Styles.container2}>
+
+                            {/* <View >
                                 <Button
+                                    style={Styles.button}
                                     raised
                                     large
-                                    onPress={() => this.props.navigation.navigate("WebView", {url: car.purchaseURL})}
                                     backgroundColor="green"
                                     // icon={{name: ''}}
                                     title='Go To Site' />
-                            </View>
+                            </View> */}
                            
-                        </View>
+            {/* </View> */}
+
+            {/* <Fab
+                style={{ backgroundColor: '#377d22' }}
+                position="bottomLeft"
+                onPress={() => this.props.navigation.navigate("WebView", {url: car.purchaseURL})}>
+                <Icon name="shop"/>
+              </Fab> */}
             <MyNav {...this.props}/>
             </>
 
@@ -109,11 +126,12 @@ const Styles = StyleSheet.create({
     },
     button: {
 
-        width: 260,
+        width: win.width,
+        height:105,
         alignItems: 'center',
         borderColor: "black",
-        margin: 10,
-        backgroundColor: 'green',
+        // margin: 10,
+        backgroundColor: '#377d22',
     },buttonText: {
         padding: 20,
         fontSize: 24,
@@ -156,11 +174,13 @@ const Styles = StyleSheet.create({
     },
     container2: {
         justifyContent: 'flex-end',
+        // backgroundColor: '#f1f1f1'
     },
     container3: {
         alignSelf: 'center',
+        width: null,
         paddingBottom: 25,
-        
+        paddingTop:7,
     },
 })
 
