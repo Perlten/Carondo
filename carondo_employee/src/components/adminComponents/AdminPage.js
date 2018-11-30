@@ -17,9 +17,9 @@ export default class AdminPage extends Component {
 
     render() {
         return (
-            <div style={{ marginLeft: 20, marginRight: 20 }}>
-                <LogoutButton history={this.props.history} style={{ float: "right", marginRight: 40 }} />
+            <div style={{ marginLeft: 20, marginRight: 20, marginBottom: 100 }}>
                 <PageHeader>
+                    <LogoutButton history={this.props.history} style={{ float: "right", marginRight: 40 }} />
                     <Image style={{ width: 310, height: 110, }} src={logo} />
                     {' '}- ADMIN PANEL INTERFACE
                 </PageHeader>
