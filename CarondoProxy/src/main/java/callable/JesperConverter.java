@@ -76,7 +76,6 @@ public class JesperConverter extends SharedProps implements Callable<List<CarDTO
                 }
 
                 carList.add(car);
-                System.out.println("");
             }
            
             
