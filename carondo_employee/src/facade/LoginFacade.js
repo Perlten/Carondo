@@ -15,7 +15,6 @@ class LoginFacade {
         }
     }
 
-    //If successful the new employee will be returned from the fetch call
     create = async (body) => {
         const options = makeOptions("POST", true, body)
         try {
