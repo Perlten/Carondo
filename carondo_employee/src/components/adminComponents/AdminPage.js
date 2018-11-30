@@ -16,10 +16,8 @@ export default class AdminPage extends Component {
 
     render() {
         return (
-            <div style={{ margin: 60 }}>
-                <PageHeader style={{ textAlign: 'center' }}>
-                    Admin panel overview
-                    {/* <small>Carondo A/S</small> */}
+            <div>
+                <PageHeader style={{ textAlign: 'center'}}>
                     <Image style={{ width: 310, height: 100 }} src={logo} />
                 </PageHeader>
                 <Grid>
