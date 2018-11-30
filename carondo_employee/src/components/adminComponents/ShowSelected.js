@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { FormGroup, FormControl, ControlLabel, Button, DropdownButton, MenuItem } from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel, Button, DropdownButton, MenuItem, Alert } from 'react-bootstrap';
 import empFacade from './../../facade/EmpCrudFacade';
-import carImg from './../../resources/car.jpg';
+import carImg from './../../resources/car.png';
 
 export default class ShowEmployee extends Component {
 
@@ -25,7 +25,7 @@ export default class ShowEmployee extends Component {
         return (
             <div>
                 <h1>User information:</h1>
-                <h2 style={{ color: "red" }}>{this.state.message}</h2>
+                <ErrorMessage error={this.state.message} handleDismiss={() => this.setState({ message: "" })} />
                 <form onKeyUp={this.enterPress}>
                     <FormGroup>
                         <ControlLabel>
@@ -92,8 +92,7 @@ export default class ShowEmployee extends Component {
         const id = e.target.id;
         const emp = this.state.emp
         emp[id] = value;
-        this.setState({ emp });
-        console.log(this.state.emp)
+        this.setState({ emp, message: "" });
     }
 
     handleSubmit = async (e) => {
@@ -104,7 +103,7 @@ export default class ShowEmployee extends Component {
             this.setState({ message: res.fullError.errorMessage })
             return;
         }
-        this.setState({ message: "Successful!" })
+        this.setState({ message: `${res.emp.firstName} ${res.emp.lastName} was successfully edited` })
         this.props.updateEmp(res.emp);
     }
 
@@ -116,14 +115,14 @@ export default class ShowEmployee extends Component {
             this.setState({ message: res.fullError.errorMessage })
             return;
         }
-        this.setState({ message: "User deleted!" })
+        this.setState({ message: `${res.emp.firstName} ${res.emp.lastName} has been deleted!` })
         this.props.deleteEmp(res.emp)
     }
 
     handleDropDown = (e) => {
         const emp = this.state.emp;
         emp.role = e;
-        this.setState({emp});
+        this.setState({ emp });
     }
 }
 
@@ -132,7 +131,7 @@ function RoleDropDownOptions({ role, handleChange }) {
         <DropdownButton
             bsStyle="primary"
             bsSize="small"
-            title={role}
+            title={role.charAt(0).toUpperCase() + role.slice(1)}
             id="role"
             onSelect={handleChange}
         >
@@ -140,5 +139,16 @@ function RoleDropDownOptions({ role, handleChange }) {
             <MenuItem eventKey="admin" value="statistician" active={role === "admin"}>Admin</MenuItem>
         </DropdownButton>
 
+    );
+}
+
+function ErrorMessage({ error, handleDismiss }) {
+    if (error) {
+        return (
+            <Alert bsStyle="danger" onDismiss={handleDismiss}><strong>{error}</strong> </Alert>
+        );
+    }
+    return (
+        <div></div>
     );
 }

@@ -2,8 +2,10 @@ import React, { Component } from "react"
 import CreateUser from "./CreateUser"
 import ShowSelected from "./ShowSelected"
 import ShowEmployees from "./ShowEmployees"
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col, PageHeader, Image, Button } from 'react-bootstrap';
 import empFacade from './../../facade/EmpCrudFacade';
+import logo from "./../../resources/logo.png"
+import LogoutButton from './../LogoutButton';
 
 
 export default class AdminPage extends Component {
@@ -15,20 +17,35 @@ export default class AdminPage extends Component {
 
     render() {
         return (
-            <div style={{ margin: 60 }}>
+            <div style={{ marginLeft: 20, marginRight: 20 }}>
+                <LogoutButton history={this.props.history} style={{ float: "right", marginRight: 40 }} />
+                <PageHeader>
+                    <Image style={{ width: 310, height: 110, }} src={logo} />
+                    {' '}- ADMIN PANEL INTERFACE
+                </PageHeader>
                 <Grid>
                     <Row>
                         <Col md={4} xs={4}>
-                            <h1>Admin page</h1>
-                            <ShowEmployees empList={this.state.empList} selectEmp={this.selectEmp} fetchEmployees={this.fetchEmployees} />
-                            <CreateUser fetchEmp={this.fetchEmployees} />
+                            <div style={{ marginBottom: 20 }}><Button bsStyle="success" onClick={this.handleRoute}>STATISTICS</Button></div>
+                            <ShowEmployees
+                                empList={this.state.empList}
+                                selectEmp={this.selectEmp}
+                                fetchEmployees={this.fetchEmployees}
+                                size={this.state.empList.length}
+                            />
+
                         </Col>
                         <Col md={6} xs={6} mdOffset={2}>
-                            <ShowSelected emp={this.state.selectedEmp} updateEmp={this.updateEmployees} deleteEmp={this.deleteEmployee} />
+                            <CreateUser fetchEmp={this.fetchEmployees} />
+                            <ShowSelected
+                                emp={this.state.selectedEmp}
+                                updateEmp={this.updateEmployees}
+                                deleteEmp={this.deleteEmployee}
+                            />
                         </Col>
                     </Row>
                 </Grid>
-            </div>
+            </div >
         );
     }
 
@@ -57,5 +74,11 @@ export default class AdminPage extends Component {
 
     selectEmp = (selectedEmp) => {
         this.setState({ selectedEmp })
+    }
+
+    handleRoute = (e) => {
+        e.preventDefault()
+        const history = this.props.history
+        history.push('/statisticianPage')
     }
 }

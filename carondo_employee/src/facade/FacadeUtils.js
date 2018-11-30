@@ -26,6 +26,10 @@ export function setToken(token) {
     localStorage.setItem("token", token)
 }
 
+export function removeToken(){
+    localStorage.removeItem("token");
+}
+
 export async function handleHttpErrors(res) {
     if (!res.ok) {
         const fullError = await res.json();

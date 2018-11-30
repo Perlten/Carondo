@@ -1,28 +1,31 @@
 import React, { Component } from "react"
 import facade from "./../../facade/LoginFacade"
-import { FormGroup, FormControl, ControlLabel, Button, Panel } from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel, Button, Panel, Alert, DropdownButton, MenuItem } from 'react-bootstrap';
 
 export default class CreateUser extends Component {
     constructor() {
         super()
         this.state = {
             create: { firstName: "", lastName: "", email: "", password: "", role: "admin" },
-            message: ""
+            message: "",
+            toggle: false
         }
     }
 
     render() {
+        //Used in the dropdown menu
+        const role = this.state.create.role
+        
         return (
             <div>
-                <Panel>
+                <Panel onToggle={() => "TEST"} expanded={this.state.toogle}>
                     <Panel.Heading>
-                        <Panel.Title toggle>
+                        <Panel.Title onClick={this.toggleCollapse}>
                             <strong>Create User</strong>
                         </Panel.Title>
                         <Panel.Collapse>
                             <Panel.Body>
-                                <h1>Create user</h1>
-                                <h2 style={{ color: "red" }}>{this.state.message}</h2>
+                                <ErrorMessage error={this.state.message} handleDismiss={() => this.setState({ message: "" })} />
                                 <form>
                                     <FormGroup>
                                         <ControlLabel>
@@ -66,10 +69,17 @@ export default class CreateUser extends Component {
                                             onChange={this.handleChange}
                                         />
                                         <ControlLabel>Role</ControlLabel>
-                                        <FormControl id="role" onChange={this.handleChange} componentClass="select" placeholder="Role">
-                                            <option defaultValue="admin" >Admin</option>
-                                            <option value="statistician">Statistician</option>
-                                        </FormControl>
+                                        <br />
+                                        <DropdownButton
+                                            bsStyle="primary"
+                                            bsSize="small"
+                                            title={role.charAt(0).toUpperCase() + role.slice(1)}
+                                            id="role"
+                                            onSelect={this.handleDropDown}
+                                        >
+                                            <MenuItem eventKey="admin" active={this.state.create.role === "admin"}>Admin</MenuItem>
+                                            <MenuItem eventKey="statistician" active={this.state.create.role === "statistician"}>Statistician</MenuItem>
+                                        </DropdownButton>
                                     </FormGroup>
                                     <Button bsStyle="success" onClick={this.handleSubmit}>Register</Button>
                                 </form>
@@ -91,6 +101,14 @@ export default class CreateUser extends Component {
         }
         this.props.fetchEmp();
         this.setState({ message: "Successful!" })
+        const create = { firstName: "", lastName: "", email: "", password: "", role: "admin" };
+        this.setState({ create });
+        this.toggleCollapse();
+
+    }
+
+    toggleCollapse = () => {
+        this.setState({ toogle: !this.state.toogle });
     }
 
 
@@ -102,6 +120,23 @@ export default class CreateUser extends Component {
             id = e.target.name
         }
         create[id] = value;
+        this.setState({ create, message: "" });
+    }
+
+    handleDropDown = (e) => {
+        const create = this.state.create;
+        create.role = e;
         this.setState({ create });
     }
+}
+
+function ErrorMessage({ error, handleDismiss }) {
+    if (error) {
+        return (
+            <Alert bsStyle="danger" onDismiss={handleDismiss}><strong>{error}</strong> </Alert>
+        );
+    }
+    return (
+        <div></div>
+    );
 }
