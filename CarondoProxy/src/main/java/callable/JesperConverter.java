@@ -78,7 +78,9 @@ public class JesperConverter extends SharedProps implements Callable<List<CarDTO
                 carList.add(car);
                 System.out.println("");
             }
-
+           CarDTO brum = new CarDTO("Legendary", "Brum", 3000000, "red", 4, "https://images-na.ssl-images-amazon.com/images/I/41V8S7TTVPL.jpg", "https://images-na.ssl-images-amazon.com/images/I/41V8S7TTVPL.jpg");
+            brum.extra.add(new CarExtraDTO("Real Color", "Yellow"));
+            
             return carList;
         } catch (Exception e) {
             return new ArrayList();
