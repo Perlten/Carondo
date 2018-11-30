@@ -71,6 +71,7 @@ Temporary Items
 
 #OWN!!
 ApplicationConfig.java
+deployScript
 #persistence.xml
 
 ### Maven ###
