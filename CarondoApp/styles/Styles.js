@@ -7,10 +7,17 @@ const Styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        paddingBottom: 30,
-        alignItems: 'center',
-        justifyContent: 'center',
-    }, input: {
+        paddingBottom: 100,
+        paddingTop:7,
+        // alignItems: 'center',
+        // justifyContent: 'flex-end',
+    },
+    container2: {
+        justifyContent: 'flex-end',
+    },container3: {
+        alignSelf: 'center',
+        paddingBottom: 25,
+    },input: {
         width: 200,
         height: 44,
         padding: 10,
@@ -32,10 +39,18 @@ const Styles = StyleSheet.create({
         flex: 1,
         alignSelf: 'stretch',
         width: win.width,
-        height: 100
+        height: 100,
+        
     },
+    search:{
+        width: 30,
+        height: 30,
+      },
     button2:{
         backgroundColor: "red"
+    },
+    title:{
+        fontSize: 25,
     }
 
 });

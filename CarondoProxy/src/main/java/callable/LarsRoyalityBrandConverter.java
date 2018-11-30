@@ -107,6 +107,7 @@ public class LarsRoyalityBrandConverter extends SharedProps implements Callable<
                 car.extra.add(new CarExtraDTO("Eco Rating", ecoRating));
                 car.extra.add(new CarExtraDTO("Energy Type", energyType));
                 car.extra.add(new CarExtraDTO("Leather Type", letherType));
+                car.extra.add(new CarExtraDTO("Engine Size", engineSize));
                 car.extra.add(new CarExtraDTO("Weight", weight + " Kg"));
                 car.extra.add(new CarExtraDTO("Height", height + " m"));
                 car.extra.add(new CarExtraDTO("Width", width + " m"));

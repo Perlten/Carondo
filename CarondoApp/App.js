@@ -9,7 +9,9 @@ import WebView from "./screens/WebView"
 const AppNavigator = createStackNavigator({
 Search: Search,
 Results: Results,
-CarView: CarView,
+CarView: {
+    screen: CarView,
+},
 WebView: WebView,
 
 });

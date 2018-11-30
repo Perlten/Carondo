@@ -5,7 +5,7 @@ import {
   Text,
   View,
   TouchableHighlight,
-  ScrollView
+  Right,
 } from "react-native";
 
 export default class CarResult extends React.Component {
@@ -40,6 +40,10 @@ export default class CarResult extends React.Component {
                 ${car.price.toLocaleString("en", { minimumFractionDigits: 0 })}
               </Text>
             </View>
+            
+          </View>
+          <View style={Styles.arrowBox}>
+               <Image style={Styles.arrow} source={require("../pics/forward.png")} />
           </View>
         </View>
         </TouchableHighlight>
@@ -68,13 +72,13 @@ const Styles = StyleSheet.create({
     elevation: 3
   },
   image: {
-    flex: 1,
+    flex: 6,
     width: 30,
     height: 180
   },
   view: {
     paddingLeft: 7,
-    flex: 1
+    flex: 5
   },
   title: {
     fontSize: 15
@@ -92,5 +96,14 @@ const Styles = StyleSheet.create({
   price: {
     fontSize: 20,
     fontWeight: "bold"
+  }, arrowBox:{
+    flex:1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  }, 
+  arrow:{
+    height:30,
+    width:30,
+    opacity: .3,
   }
 });

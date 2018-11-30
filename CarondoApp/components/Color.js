@@ -19,38 +19,45 @@ export default class Color extends React.Component {
     }
 
     render(){
-    const Styles = StyleSheet.create({
-        box: {
-            flex: 1,
-            height: 80,
-            backgroundColor: this.props.colorCode,
-        },
-        text: {
-
-        }
-
-    })
+        const Styles = StyleSheet.create({
+            box: {
+                flex: 1,
+                height: 60,
+                backgroundColor: this.props.colorCode,
+                justifyContent:"center",
+                alignItems: 'center'
+            },
+            pic: {
+                width: 20,
+                height: 20
+            }
+        
+        })
 
     if (!this.props.selectedColors.includes(this.props.value)) {
         return (
-            <TouchableHighlight style={Styles.box} onPress={this.weMadeIt}>
+            <TouchableHighlight underlayColor={"white"} style={Styles.box} onPress={this.weMadeIt}>
              <Text></Text >
             </TouchableHighlight>
         )
     } else {
         if(this.props.fileName == "black"){
         return (
-            <TouchableHighlight style={Styles.box} onPress={this.weMadeIt} >
-            <Image source={require("../pics/black.png")}/>
+            <TouchableHighlight underlayColor={"white"} style={Styles.box} onPress={this.weMadeIt} >
+            <Image style={Styles.pic} source={require("../pics/black.png")}/>
             </TouchableHighlight>
         )
         }else{
             return (
-                <TouchableHighlight style={Styles.box} onPress={this.weMadeIt} >
-                <Image source={require("../pics/white.png")}/>
+                <TouchableHighlight underlayColor={"white"} style={Styles.box} onPress={this.weMadeIt} >
+                <Image style={Styles.pic} source={require("../pics/white.png")}/>
                 </TouchableHighlight>
             )
         }
     }
     }
+
+    
+    
 }
+
