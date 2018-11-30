@@ -23,6 +23,7 @@ public class ThrowableMapper implements ExceptionMapper<Throwable>{
         JsonObject jo = new JsonObject();
         jo.addProperty("errorTitle", "Something went wrong!");
         jo.addProperty("errorMessage", "Please try again.");
+        jo.addProperty("status", 400);
         return Response
                 .status(Response.Status.INTERNAL_SERVER_ERROR)
                 .entity(new Gson().toJson(jo))

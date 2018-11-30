@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FormGroup, FormControl, ControlLabel, Button, DropdownButton, MenuItem } from 'react-bootstrap';
 import empFacade from './../../facade/EmpCrudFacade';
+import carImg from './../../resources/car.jpg';
 
 export default class ShowEmployee extends Component {
 
@@ -19,7 +20,7 @@ export default class ShowEmployee extends Component {
 
     render() {
         if (!this.props.emp) {
-            return <div></div>
+            return <img src={carImg} alt="Car" />
         }
         return (
             <div>
@@ -130,6 +131,7 @@ function RoleDropDownOptions({ role, handleChange }) {
     return (
         <DropdownButton
             bsStyle="primary"
+            bsSize="small"
             title={role}
             id="role"
             onSelect={handleChange}

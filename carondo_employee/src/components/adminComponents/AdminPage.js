@@ -23,7 +23,7 @@ export default class AdminPage extends Component {
                             <ShowEmployees empList={this.state.empList} selectEmp={this.selectEmp} fetchEmployees={this.fetchEmployees} />
                             <CreateUser fetchEmp={this.fetchEmployees} />
                         </Col>
-                        <Col md={6} xs={6} xsOffset={2}>
+                        <Col md={6} xs={6} mdOffset={2}>
                             <ShowSelected emp={this.state.selectedEmp} updateEmp={this.updateEmployees} deleteEmp={this.deleteEmployee} />
                         </Col>
                     </Row>
