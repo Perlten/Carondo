@@ -22,7 +22,6 @@ export default class CreateUser extends Component {
                         </Panel.Title>
                         <Panel.Collapse>
                             <Panel.Body>
-                                <h1>Create user</h1>
                                 <ErrorMessage error={this.state.message} handleDismiss={() => this.setState({ message: "" })} />
                                 <form>
                                     <FormGroup>

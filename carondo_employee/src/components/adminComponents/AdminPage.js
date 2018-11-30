@@ -2,8 +2,9 @@ import React, { Component } from "react"
 import CreateUser from "./CreateUser"
 import ShowSelected from "./ShowSelected"
 import ShowEmployees from "./ShowEmployees"
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col, PageHeader, Image } from 'react-bootstrap';
 import empFacade from './../../facade/EmpCrudFacade';
+import logo from "./../../resources/logo.png"
 
 
 export default class AdminPage extends Component {
@@ -16,10 +17,14 @@ export default class AdminPage extends Component {
     render() {
         return (
             <div style={{ margin: 60 }}>
+                <PageHeader style={{ textAlign: 'center' }}>
+                    Admin panel overview
+                    {/* <small>Carondo A/S</small> */}
+                    <Image style={{ width: 310, height: 100 }} src={logo} />
+                </PageHeader>
                 <Grid>
                     <Row>
                         <Col md={4} xs={4}>
-                            <h1>Admin page</h1>
                             <ShowEmployees
                                 empList={this.state.empList}
                                 selectEmp={this.selectEmp}
@@ -38,7 +43,7 @@ export default class AdminPage extends Component {
                         </Col>
                     </Row>
                 </Grid>
-            </div>
+            </div >
         );
     }
 
