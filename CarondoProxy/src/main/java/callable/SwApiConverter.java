@@ -78,6 +78,8 @@ public class SwApiConverter extends SharedProps implements Callable<List<CarDTO>
             car.extra.add(new CarExtraDTO("Passengers", passengers));
 
             CARLIST.add(car);
+            
+            //Change to perlt when donee
             car.setPurchaseURL("http://localhost:8084/CarondoProxy/api/swapi/"+CARLIST.size());
         }
 
