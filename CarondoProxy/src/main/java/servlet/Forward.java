@@ -6,6 +6,7 @@
 package servlet;
 
 import exception.CarondoException;
+import facade.StatFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,20 +20,24 @@ import resource.PurchaseLinks;
  *
  * @author perlt
  */
-@WebServlet(name = "Forward", urlPatterns = {"/forward/*"})
+@WebServlet(name = "Forward", urlPatterns = {"/forward"})
 public class Forward extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String uri = request.getRequestURI();
-        String[] split = uri.split("/");
-        String key = split[split.length - 1];
+        String key = request.getParameter("key");
+        String brand = request.getParameter("brand");
+        brand = brand.replace('-', ' ');
+        
+        StatFacade statFacade = new StatFacade();
+        statFacade.updateBrandStat(brand);
         try {
             String url = PurchaseLinks.getLink(key);
             response.sendRedirect(url);
         } catch (Exception e) {
-
+            //TODO: Change to carondo frontpage
+            response.sendRedirect("google.dk");
         }
     }
 
