@@ -17,7 +17,7 @@ public class SwApiConverter extends SharedProps implements Callable<List<CarDTO>
     private static LocalDateTime lastFetch = LocalDateTime.now();
     private static final String URL = "https://swapi.co/api/vehicles/";
     private static final String IMAGEURL = "https://vignette.wikia.nocookie.net/starwars/images/3/3c/Px-10-tur.jpg/revision/latest?cb=20100528131240";
-    private static final List<CarDTO> CARLIST = new ArrayList<>();
+    public static final List<CarDTO> CARLIST = new ArrayList<>();
 
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -43,9 +43,11 @@ public class SwApiConverter extends SharedProps implements Callable<List<CarDTO>
             CARLIST.clear();
             fetchData(URL);
         }
+        fetchData(URL);
     }
 
-    private void fetchData(String url) throws Exception {
+    // return to private again
+   public void fetchData(String url) throws Exception {
         String data = new URLRequest().request(url);
         convertData(data);
     }
@@ -64,19 +66,19 @@ public class SwApiConverter extends SharedProps implements Callable<List<CarDTO>
             String manu = getFieldValueAsString(j, "manufacturer");
             String priceString = getFieldValueAsString(j, "cost_in_credits");
             String length = getFieldValueAsString(j, "length");
-            String purchaseURL = getFieldValueAsString(j, "url");
 
             int price = 0;
             if (!priceString.equals("unknown")) {
                 price = Integer.parseInt(priceString);
             }
-            CarDTO car = new CarDTO(manu, model, price, "Unknown", size, IMAGEURL, purchaseURL);
+            CarDTO car = new CarDTO(manu, model, price, "Unknown", size, IMAGEURL);
             car.extra.add(new CarExtraDTO("Name", name));
             car.extra.add(new CarExtraDTO("Vehicle Class", vClass));
             car.extra.add(new CarExtraDTO("Length", length));
             car.extra.add(new CarExtraDTO("Passengers", passengers));
 
             CARLIST.add(car);
+            car.setPurchaseURL("http://localhost:8084/CarondoProxy/api/swapi/"+CARLIST.size());
         }
 
         if (next != null) {

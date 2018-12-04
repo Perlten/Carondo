@@ -25,11 +25,29 @@ public List<CarExtraDTO> extra = new ArrayList();
         this.purchaseURL = purchaseURL;
     }
 
+    
+    // Used in swapi
+    public CarDTO(String brand, String model, int price, String color, int size, String imageURL) {
+        this.brand = brand;
+        this.model = model;
+        this.price = price;
+        this.color = color;
+        this.size = size;
+        this.imageURL = imageURL;
+    }
+
+    
+    
     @Override
     public String toString() {
         return "CarDTO{" + "brand=" + brand + ", model=" + model + ", price=" + price + ", color=" + color + ", size=" + size + ", imageURL=" + imageURL + ", purchaseURL=" + purchaseURL + ", extra=" + extra + '}';
     }
 
+    public void setPurchaseURL(String purchaseURL) {
+        this.purchaseURL = purchaseURL;
+    }
+
+    
 
 
     
