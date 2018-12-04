@@ -1,8 +1,14 @@
 package facade;
 
+import dto.stat.BrandDTO;
+import dto.stat.ColorDTO;
+import dto.stat.DateDTO;
+import dto.stat.StatResponseDTO;
 import entity.stat.BrandStat;
 import entity.stat.ColorStat;
 import entity.stat.DateStat;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -71,7 +77,7 @@ public class StatFacade {
     public void saveCurrentDate() {
         DateTime dt = new DateTime();
         String day = dt.dayOfWeek().getAsText();
-        
+
         EntityManager em = getEm();
         DateStat stat;
         try {
@@ -92,7 +98,29 @@ public class StatFacade {
         } finally {
             em.close();
         }
-        
+    }
+
+    public StatResponseDTO getAllStats() {
+        EntityManager em = getEm();
+
+        try {
+            TypedQuery<ColorStat> colorQ = em.createQuery("SELECT c FROM ColorStat c", ColorStat.class);
+            List<ColorStat> colorList = colorQ.getResultList();
+            TypedQuery<BrandStat> brandQ = em.createQuery("SELECT b FROM BrandStat b", BrandStat.class);
+            List<BrandStat> brandList = brandQ.getResultList();
+            TypedQuery<DateStat> dateQ = em.createQuery("SELECT d FROM DateStat d", DateStat.class);
+            List<DateStat> dateList = dateQ.getResultList();
+
+            List<ColorDTO> colorDtoList = colorList.stream().map((t) -> { return new ColorDTO(t);})
+                    .collect(Collectors.toList());
+            List<BrandDTO> brandDtoList = brandList.stream().map((t) -> { return new BrandDTO(t);})
+                    .collect(Collectors.toList());
+            List<DateDTO> dateDtoList = dateList.stream().map((t) -> { return new DateDTO(t);})
+                    .collect(Collectors.toList());
+            return new StatResponseDTO(brandDtoList, colorDtoList, dateDtoList);
+        } finally {
+            em.close();
+        }
     }
 
     public void updateColorStat(String[] colors) {
