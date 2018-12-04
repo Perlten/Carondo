@@ -23,14 +23,17 @@ import resource.PurchaseLinks;
 public class Forward extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, CarondoException {
+            throws ServletException, IOException {
 
         String uri = request.getRequestURI();
         String[] split = uri.split("/");
         String key = split[split.length - 1];
-        
-        String url = PurchaseLinks.getLink(key);
-        response.sendRedirect(url);
+        try {
+            String url = PurchaseLinks.getLink(key);
+            response.sendRedirect(url);
+        } catch (Exception e) {
+
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
