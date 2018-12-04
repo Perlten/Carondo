@@ -16,7 +16,8 @@ public class PurchaseLinks {
 
     
     public static String getLink(String hash){
-       
+    
+        return null;
     }
     
     public static void saveLink(String link){
