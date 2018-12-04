@@ -5,6 +5,7 @@
  */
 package resource;
 
+import exception.CarondoException;
 import java.util.HashMap;
 
 /**
@@ -12,16 +13,28 @@ import java.util.HashMap;
  * @author adamlass
  */
 public class PurchaseLinks {
-    private static HashMap<String,String> links = new HashMap<>();
 
-    
-    public static String getLink(String hash){
-    
-        return null;
+    private static HashMap<String, String> links = null;
+
+    public static String getLink(String hash) throws CarondoException {
+        try {
+            return links.get(hash);
+
+        } catch (Exception e) {
+            throw new CarondoException("Getting purchase URL failed.", "Please try again!");
+        }
     }
-    
-    public static void saveLink(String link){
-        
+
+    public static String saveLink(String link) {
+        if (links == null) {
+            links = new HashMap<>();
+        }
+        String hash = "" + link.hashCode();
+
+        if (!links.containsKey(hash)) {
+            links.put(hash, link);
+        }
+        return hash;
     }
-    
+
 }

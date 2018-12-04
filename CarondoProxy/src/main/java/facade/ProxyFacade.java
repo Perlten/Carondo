@@ -14,8 +14,11 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import resource.PurchaseLinks;
 
 public class ProxyFacade {
+    
+    private final String purchaseURI = "https://perlt.net/Carondo/forward/";
 
     public List<CarDTO> getCars(String color, String eco, int minSize,
             int maxSize, int minPrice, int maxPrice) throws InterruptedException, ExecutionException, CarondoException {
@@ -38,6 +41,12 @@ public class ProxyFacade {
         List<CarDTO> cars = new ArrayList();
         for (Future<List<CarDTO>> f : futures) {
             cars.addAll(f.get());
+        }
+        
+        for (CarDTO car : cars) {
+            String hash = PurchaseLinks.saveLink(car.purchaseURL);
+            String newPurchaseURL = purchaseURI + hash;
+            car.setPurchaseURL(newPurchaseURL);
         }
         
         if(cars.isEmpty()){

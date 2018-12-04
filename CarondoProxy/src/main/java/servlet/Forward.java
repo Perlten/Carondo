@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import exception.CarondoException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -22,12 +23,12 @@ import resource.PurchaseLinks;
 public class Forward extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, CarondoException {
 
         String uri = request.getRequestURI();
         String[] split = uri.split("/");
         String key = split[split.length - 1];
-
+        
         String url = PurchaseLinks.getLink(key);
         response.sendRedirect(url);
     }
