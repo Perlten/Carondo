@@ -46,7 +46,6 @@ public class SwApiConverter extends SharedProps implements Callable<List<CarDTO>
         fetchData(URL);
     }
 
-    // return to private again
    public void fetchData(String url) throws Exception {
         String data = new URLRequest().request(url);
         convertData(data);
@@ -79,8 +78,7 @@ public class SwApiConverter extends SharedProps implements Callable<List<CarDTO>
 
             CARLIST.add(car);
             
-            //Change to perlt when donee
-            car.setPurchaseURL("http://localhost:8084/CarondoProxy/api/swapi/"+CARLIST.size());
+            car.setPurchaseURL("swapicarondo.surge.sh/viewcar/"+CARLIST.size());
         }
 
         if (next != null) {
