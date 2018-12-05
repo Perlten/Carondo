@@ -1,8 +1,9 @@
 import React, { Component } from "react"
-import { PageHeader, Image, Button } from 'react-bootstrap';
+import { PageHeader, Image, Button, Grid, Row, Col } from 'react-bootstrap';
 import logo from "./../../resources/logo.png"
 import { parseJWT, getToken } from './../../facade/FacadeUtils';
 import LogoutButton from "./../LogoutButton"
+import BrandGraph from "./BrandGraph"
 
 export default class StatisticianPage extends Component {
     render() {
@@ -16,6 +17,13 @@ export default class StatisticianPage extends Component {
                     {' '}- STATISTICIAN PANEL INTERFACE
                 </PageHeader>
                 <CheckIfAdmin handleRoute={this.handleRoute} />
+                <Grid>
+                    <Row>
+                        <Col md={6} xs={6}>
+                            <BrandGraph />
+                        </Col>
+                    </Row>
+                </Grid>
             </div>
         );
     }
