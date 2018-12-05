@@ -17,10 +17,7 @@ const data = {
 };
 
 export default class BrandGraph extends Component {
-    constructor(props) {
-        super(props)
-    }
-
+   
     render() {
         return (
             <div>
