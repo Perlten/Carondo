@@ -6,6 +6,7 @@ import LogoutButton from "./../LogoutButton"
 import BrandGraph from "./BrandGraph"
 import ColorGraph from './ColorGraph';
 import StatFacade from './../../facade/StatsFacade';
+import WeekdayGraph from './WeekdayGraph'
 
 export default class StatisticianPage extends Component {
 
@@ -28,7 +29,8 @@ export default class StatisticianPage extends Component {
                 <CheckIfAdmin handleRoute={this.handleRoute} />
                 <Grid>
                     <Row>
-                        <Col md={6} xs={6}>
+                        <Col md={12} xs={12}>
+                            <WeekdayGraph dates={this.state.stats.dateList} />
                             <BrandGraph brands={this.state.stats.brandList} />
                             <ColorGraph colors={this.state.stats.colorList} />
                         </Col>
