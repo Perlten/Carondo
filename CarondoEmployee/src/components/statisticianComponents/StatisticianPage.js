@@ -15,6 +15,10 @@ export default class StatisticianPage extends Component {
     this.fetchData();
   }
 
+  componentDidMount() {
+    setInterval(this.fetchData, 15000);
+  }
+
   render() {
     if (!this.state.stats) return null;
 
