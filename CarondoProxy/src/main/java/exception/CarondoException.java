@@ -54,7 +54,6 @@ public class CarondoException extends Exception implements ExceptionMapper<Caron
         }
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(jo);
-        return Response.status(400).entity(json).type(MediaType.APPLICATION_JSON).build();
+        return Response.status(status).entity(json).type(MediaType.APPLICATION_JSON).build();
     }
-
 }
