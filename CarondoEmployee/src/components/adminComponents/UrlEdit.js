@@ -1,6 +1,6 @@
 import React from "react"
 import urlfacade from './../../facade/UrlFacade'
-import { Button, Alert, PanelGroup, Panel } from 'react-bootstrap';
+import { Alert, PanelGroup, Panel } from 'react-bootstrap';
 import EditUrlComponent from "./EditUrlComponent";
 import UrlFacade from "./../../facade/UrlFacade";
 
@@ -19,7 +19,7 @@ export default class UrlEdit extends React.Component {
 
     editUrl = async (object) => {
         try {
-            const url = await UrlFacade.editUrl(object)
+            await UrlFacade.editUrl(object)
             this.setState({ showUrls: !this.state.showUrls })
             this.setState({ showAlert: true })
             setTimeout(() => this.setState({ showAlert: false }), 4000);
@@ -34,7 +34,7 @@ export default class UrlEdit extends React.Component {
             const res = await urlfacade.getUrls()
             const max = res.length
             const urlsDisplay = res.map((url, i) => {
-                return <EditUrlComponent url={url} key={i} editUrl={this.editUrl} lastIndex={6} />
+                return <EditUrlComponent url={url} key={i} editUrl={this.editUrl} lastIndex={max} />
             })
             this.setState({ urlsDisplay })
         } catch (e) {

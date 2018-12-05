@@ -40,7 +40,7 @@ export default class EditUrlComponent extends React.Component {
 
     render() {
         var isLast = false;
-        if (this.props.lastIndex == this.props.url.id) {
+        if (this.props.lastIndex === this.props.url.id) {
             isLast = true;
         }
 
