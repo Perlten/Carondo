@@ -4,14 +4,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dto.CarDTO;
 import facade.ProxyFacade;
+import facade.StatFacade;
 import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -42,6 +41,10 @@ public class Cars {
         if (checkParams(color, eco, minSize, maxSize, minPrice, maxPrice)) {
             throw new Exception();
         }
+        
+        StatFacade statFacade = new StatFacade();
+        statFacade.updateColorStat(color.split(","));
+        statFacade.saveCurrentDate();
 
         List<CarDTO> carList = facade.getCars(color, eco, minSize, maxSize, minPrice, maxPrice);
         String json = gson.toJson(carList);
