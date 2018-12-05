@@ -10,25 +10,25 @@ import WeekdayGraph from './WeekdayGraph'
 
 export default class StatisticianPage extends Component {
 
-    constructor(props){
-        super(props);
-        this.state = {stats: null};
-        this.fetchData();
-    }
+  constructor(props) {
+    super(props);
+    this.state = { stats: null };
+    this.fetchData();
+  }
 
-    componentDidMount(){
-        setInterval(this.fetchData, 15000);
-    }
+  componentDidMount() {
+    setInterval(this.fetchData, 15000);
+  }
 
-    render() {
-        if(!this.state.stats) return null;
+  render() {
+    if (!this.state.stats) return null;
 
-        return (
-            <div style={{ marginLeft: 20, marginRight: 20 }}>
-                <PageHeader>
-                    <LogoutButton history={this.props.history} style={{ float: "right", marginRight: 40 }} />
-                    <Image style={{ width: 310, height: 110 }} src={logo} />
-                    {' '}- STATISTICIAN PANEL INTERFACE
+    return (
+      <div style={{ marginLeft: 20, marginRight: 20 }}>
+        <PageHeader>
+          <LogoutButton history={this.props.history} style={{ float: "right", marginRight: 40 }} />
+          <Image style={{ width: 310, height: 110 }} src={logo} />
+          {' '}- STATISTICIAN PANEL INTERFACE
                 </PageHeader>
                 <CheckIfAdmin handleRoute={this.handleRoute} />
                 <Grid>
@@ -44,26 +44,27 @@ export default class StatisticianPage extends Component {
         );
     }
 
-    fetchData = async () => {
-        const res = await StatFacade.getStatistics();
-        if(res.status !== 200){
-            return;
-        }
-        this.setState({stats: res.stats});
+  fetchData = async () => {
+    const res = await StatFacade.getStatistics();
+    if (res.status !== 200) {
+      return;
     }
+    this.setState({ stats: res.stats });
+    console.log(this.state);
+  }
 
-    handleRoute = (e) => {
-        e.preventDefault()
-        const history = this.props.history
-        history.push('/adminPage')
-    }
+  handleRoute = (e) => {
+    e.preventDefault()
+    const history = this.props.history
+    history.push('/adminPage')
+  }
 }
 
 function CheckIfAdmin({ handleRoute }) {
-    const tokenTxt = getToken();
-    const token = parseJWT(tokenTxt)
-    if (token.role === "admin") {
-        return <div style={{ marginBottom: 20 }}><Button bsStyle="success" onClick={handleRoute}>ADMIN</Button></div>
-    }
-    return <div></div>
+  const tokenTxt = getToken();
+  const token = parseJWT(tokenTxt)
+  if (token.role === "admin") {
+    return <div style={{ marginBottom: 20 }}><Button bsStyle="success" onClick={handleRoute}>ADMIN</Button></div>
+  }
+  return <div></div>
 }

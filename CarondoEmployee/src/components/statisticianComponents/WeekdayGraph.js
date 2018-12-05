@@ -7,6 +7,7 @@ export default function ColorGraph({ dates }) {
     const labels = dates.map((day) => day.day)
     const values = dates.map((day) => day.value)
 
+    console.log(dates)
     const data = {
         labels: labels,
         datasets: [
