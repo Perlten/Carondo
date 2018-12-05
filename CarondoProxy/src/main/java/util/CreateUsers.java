@@ -10,8 +10,7 @@ public class CreateUsers {
     
     public static void main(String[] args) throws CarondoException {
         EmployeeFacade f = new EmployeeFacade();
-        
-        Employee emp = new Employee("Jesper", "Jeppe", "jesper@gmail.com", "admin", Role.admin);
+        Employee emp = new Employee("Nikolai", "Perlt", "perlt@gmail.com", "admin", Role.admin);
         f.createEmployee(emp);
     }
 }

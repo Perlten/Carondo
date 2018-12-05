@@ -9,6 +9,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import dto.CarDTO;
 import dto.CarExtraDTO;
+import entity.RestUrl;
+import facade.RestUrlFacade;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -19,15 +21,29 @@ import java.util.concurrent.Callable;
  */
 public class RasmusConverter extends SharedProps implements Callable<List<CarDTO>> {
 
-    private final String URL = "https://rasmushelsgaun.dk/Waauwe/api/waauwe";
+    private String URL = "";
 
     public RasmusConverter(String color, String eco, int minSize, int maxSize, int minPrice, int maxPrice) {
         super(color, eco, minSize, maxSize, minPrice, maxPrice);
+        
     }
 
+    public void setURL(String URL) {
+        this.URL = URL;
+    }
+
+    
     @Override
     public List<CarDTO> call() throws Exception {
+        
+       
+        
         try {
+            
+        RestUrlFacade ruf = new RestUrlFacade();
+        RestUrl ru = ruf.getUrl("Waauwe");
+        URL += ru.getUrl();
+            
             String reqUrl = URL + "?min_price=" + minPrice;
             reqUrl += "&max_price=" + maxPrice;
             reqUrl += "&min_size=" + minSize;

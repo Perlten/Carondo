@@ -40,7 +40,7 @@ public class Employee implements Serializable {
         if (password == null || password.equals("")) {
             throw new CarondoException(400, "Invalid password", "Invalid password");
         }
-        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+        this.password = password;
     }
 
     public Employee(Integer id, String firstName, String lastName, String email, Role role) {

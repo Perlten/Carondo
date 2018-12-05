@@ -9,13 +9,15 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import dto.CarDTO;
 import dto.CarExtraDTO;
+import entity.RestUrl;
+import facade.RestUrlFacade;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
 public class PerltConverter extends SharedProps implements Callable<List<CarDTO>> {
 
-    private final String URL = "https://perlt.net/CarondoBackend/api/car?";
+    private String URL = "";
 
     public PerltConverter(String color, String eco, int minSize, int maxSize, int minPrice, int maxPrice) {
         super(color, eco, minSize, maxSize, minPrice, maxPrice);
@@ -23,7 +25,11 @@ public class PerltConverter extends SharedProps implements Callable<List<CarDTO>
 
     @Override
     public List<CarDTO> call() throws Exception {
+        RestUrlFacade ruf = new RestUrlFacade();
+        RestUrl ru = ruf.getUrl("Perlt");
+        URL += ru.getUrl();
         try {
+            
             String reqUrl = makeUrlString();
 
             String jsonRes = new URLRequest().request(reqUrl);
@@ -82,7 +88,11 @@ public class PerltConverter extends SharedProps implements Callable<List<CarDTO>
     }
 
     public String makeUrlString() {
+        
+       
+        
         boolean placeAnd = false;
+        
         String reqUrl = URL;
         if (!color.equals("all")) {
             reqUrl += "color=" + color;
@@ -113,4 +123,9 @@ public class PerltConverter extends SharedProps implements Callable<List<CarDTO>
         PerltConverter c = new PerltConverter("all", "yes", 1, 3, 1, 1000);
         System.out.println(c.makeUrlString());
     }
+
+    public void setURL(String URL) {
+        this.URL = URL;
+    }
+    
 }

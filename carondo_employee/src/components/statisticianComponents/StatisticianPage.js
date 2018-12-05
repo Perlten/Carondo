@@ -1,10 +1,18 @@
 import React, { Component } from "react"
+<<<<<<< HEAD
 import { PageHeader, Image, Button, Nav, NavItem } from 'react-bootstrap';
 import logo from "./../../resources/logo.png"
 import { parseJWT, getToken } from '../../facade/FacadeUtils';
 import LogoutButton from "../LogoutButton"
 import PieChart from "react-svg-piechart"
 
+=======
+import { PageHeader, Image, Button, Grid, Row, Col } from 'react-bootstrap';
+import logo from "./../../resources/logo.png"
+import { parseJWT, getToken } from './../../facade/FacadeUtils';
+import LogoutButton from "./../LogoutButton"
+import BrandGraph from "./BrandGraph"
+>>>>>>> 1c64e3220e8d12fe37f31ea345abcea08a5dd745
 
 export default class StatisticianPage extends Component {
   render() {
@@ -25,6 +33,7 @@ export default class StatisticianPage extends Component {
           <Image style={{ width: 310, height: 110 }} src={logo} />
           {' '}- STATISTICIAN
                 </PageHeader>
+<<<<<<< HEAD
         <CheckIfAdmin handleRoute={this.handleRoute} />
         <ReactSvgPieChart
           data={data}
@@ -42,6 +51,19 @@ export default class StatisticianPage extends Component {
       </div>
     );
   }
+=======
+                <CheckIfAdmin handleRoute={this.handleRoute} />
+                <Grid>
+                    <Row>
+                        <Col md={6} xs={6}>
+                            <BrandGraph />
+                        </Col>
+                    </Row>
+                </Grid>
+            </div>
+        );
+    }
+>>>>>>> 1c64e3220e8d12fe37f31ea345abcea08a5dd745
 
   handleRoute = (e) => {
     e.preventDefault()
