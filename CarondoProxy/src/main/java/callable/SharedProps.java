@@ -53,5 +53,9 @@ public class SharedProps {
         return j.getAsJsonObject().get(fieldName).getAsBoolean();
 
     }
+    
+    protected double getFieldValueAsDouble(JsonElement j, String fieldName){
+        return j.getAsJsonObject().get(fieldName).getAsDouble();
+    }
 
 }

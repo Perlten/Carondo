@@ -7,10 +7,6 @@ package facade;
 
 import dto.CarDTO;
 import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -19,8 +15,7 @@ import static org.junit.Assert.*;
  * @author perlt
  */
 public class ProxyFacadeTest {
-    
-    
+
     /**
      * Test of getCars method, of class ProxyFacade.
      */
@@ -36,7 +31,7 @@ public class ProxyFacadeTest {
         ProxyFacade instance = new ProxyFacade();
         List<CarDTO> result = instance.getCars(color, eco, minSize, maxSize, minPrice, maxPrice);
         assertTrue(!result.isEmpty());
-         
+
     }
-    
+
 }

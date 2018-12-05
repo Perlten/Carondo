@@ -71,7 +71,8 @@ Temporary Items
 
 #OWN!!
 ApplicationConfig.java
-persistence.xml
+deployScript
+#persistence.xml
 
 ### Maven ###
 target/
@@ -92,7 +93,6 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-META-INF/
 
 ### VisualStudioCode ###
 .vscode/*

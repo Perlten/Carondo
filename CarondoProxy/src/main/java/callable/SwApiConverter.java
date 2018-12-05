@@ -6,6 +6,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import dto.CarDTO;
 import dto.CarExtraDTO;
+import entity.RestUrl;
+import facade.RestUrlFacade;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +17,9 @@ import java.util.stream.Collectors;
 public class SwApiConverter extends SharedProps implements Callable<List<CarDTO>> {
 
     private static LocalDateTime lastFetch = LocalDateTime.now();
-    private static final String URL = "https://swapi.co/api/vehicles/";
+    private String URL = "";
     private static final String IMAGEURL = "https://vignette.wikia.nocookie.net/starwars/images/3/3c/Px-10-tur.jpg/revision/latest?cb=20100528131240";
-    private static final List<CarDTO> CARLIST = new ArrayList<>();
+    public static final List<CarDTO> CARLIST = new ArrayList<>();
 
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -28,12 +30,17 @@ public class SwApiConverter extends SharedProps implements Callable<List<CarDTO>
     @Override
     public List<CarDTO> call() {
         try {
+         RestUrlFacade ruf = new RestUrlFacade();
+        RestUrl ru = ruf.getUrl("Swapi");
+        System.out.println(ru);
+        URL += ru.getUrl();
             shouldFetch();
             return filterCars();
         } catch (Exception e) {
             return new ArrayList<>();
         }
     }
+
 
     private void shouldFetch() throws Exception {
         LocalDateTime now = LocalDateTime.now();
@@ -45,7 +52,8 @@ public class SwApiConverter extends SharedProps implements Callable<List<CarDTO>
         }
     }
 
-    private void fetchData(String url) throws Exception {
+    
+   public void fetchData(String url) throws Exception {
         String data = new URLRequest().request(url);
         convertData(data);
     }
@@ -64,19 +72,20 @@ public class SwApiConverter extends SharedProps implements Callable<List<CarDTO>
             String manu = getFieldValueAsString(j, "manufacturer");
             String priceString = getFieldValueAsString(j, "cost_in_credits");
             String length = getFieldValueAsString(j, "length");
-            String purchaseURL = getFieldValueAsString(j, "url");
 
             int price = 0;
             if (!priceString.equals("unknown")) {
                 price = Integer.parseInt(priceString);
             }
-            CarDTO car = new CarDTO(manu, model, price, "Unknown", size, IMAGEURL, purchaseURL);
+            CarDTO car = new CarDTO(manu, model, price, "Unknown", size, IMAGEURL);
             car.extra.add(new CarExtraDTO("Name", name));
             car.extra.add(new CarExtraDTO("Vehicle Class", vClass));
             car.extra.add(new CarExtraDTO("Length", length));
             car.extra.add(new CarExtraDTO("Passengers", passengers));
 
             CARLIST.add(car);
+            
+            car.setPurchaseURL("http://swapicarondo.surge.sh/#/viewcar/"+CARLIST.size());
         }
 
         if (next != null) {
