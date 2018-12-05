@@ -19,7 +19,6 @@ export default class BrandGraph extends Component {
     render() {
         return (
             <div>
-                <h2>Brand popularity</h2>
                 <Bar
                     data={
                         {

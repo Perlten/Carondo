@@ -28,18 +28,35 @@ export default class StatisticianPage extends Component {
         <PageHeader>
           <LogoutButton history={this.props.history} style={{ float: "right", marginRight: 40 }} />
           <Image style={{ width: 310, height: 110 }} src={logo} />
-          {' '}- STATISTICIAN PANEL INTERFACE
+          {' '}- STATISTICS
                 </PageHeader>
                 <CheckIfAdmin handleRoute={this.handleRoute} />
                 <Grid>
                     <Row>
-                        <Col md={12} xs={12}>
-                            <WeekdayGraph dates={this.state.stats.dateList} />
+                        <Col md={12} xs={12} >
+                            <h2>Brand popularity</h2>
                             <BrandGraph brands={this.state.stats.brandList} />
-                            <ColorGraph colors={this.state.stats.colorList} />
+                        </Col>
+                        <Col md={12} xs={12}>
+                        <Row>
+                            <Col md={6} xs={12}>
+                                <h2>Weekday Total Searches</h2>
+
+                             <WeekdayGraph dates={this.state.stats.dateList} />
+                            </Col>
+                            <Col md={6} xs={12}>
+                                <h2>Color popularity by search</h2>
+                                <ColorGraph colors={this.state.stats.colorList} />                            
+                            </Col>
+                        </Row>
+
                         </Col>
                     </Row>
                 </Grid>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
             </div>
         );
     }

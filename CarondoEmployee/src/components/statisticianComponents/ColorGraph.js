@@ -13,13 +13,12 @@ export default function ColorGraph({ colors }) {
         datasets: [{
             data: dataSets,
             backgroundColor: color,
-            borderWidth: 0.5,
+            borderWidth: 0.2,
             borderColor: 'black'
         }]
     }
     return (
         <div>
-            <h2>Color popularity by search</h2>
             <Doughnut data={data} />
         </div>
     );

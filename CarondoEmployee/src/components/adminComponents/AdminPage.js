@@ -38,12 +38,12 @@ export default class AdminPage extends Component {
                         </Col>
                         <Col md={6} xs={6}>
                             <CreateUser fetchEmp={this.fetchEmployees} />
+                            <UrlEdit />
                             <ShowSelected
                                 emp={this.state.selectedEmp}
                                 updateEmp={this.updateEmployees}
                                 deleteEmp={this.deleteEmployee}
                             />
-                            <UrlEdit />
                         </Col>
                     </Row>
                 </Grid>
