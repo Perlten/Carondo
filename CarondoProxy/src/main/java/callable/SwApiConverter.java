@@ -78,7 +78,7 @@ public class SwApiConverter extends SharedProps implements Callable<List<CarDTO>
 
             CARLIST.add(car);
             
-            car.setPurchaseURL("swapicarondo.surge.sh/viewcar/"+CARLIST.size());
+            car.setPurchaseURL("http://swapicarondo.surge.sh/#/viewcar/"+CARLIST.size());
         }
 
         if (next != null) {
