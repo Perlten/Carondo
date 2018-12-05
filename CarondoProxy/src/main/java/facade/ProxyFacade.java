@@ -14,12 +14,15 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import resource.PurchaseLinks;
 
 public class ProxyFacade {
+    
+    private final String purchaseURI = "https://perlt.net/Carondo/forward?key=";
 
     public List<CarDTO> getCars(String color, String eco, int minSize,
             int maxSize, int minPrice, int maxPrice) throws InterruptedException, ExecutionException, CarondoException {
-        ExecutorService pool = Executors.newFixedThreadPool(2);
+        ExecutorService pool = Executors.newFixedThreadPool(5);
 
         List<Future<List<CarDTO>>> futures = new ArrayList();
 
@@ -40,8 +43,14 @@ public class ProxyFacade {
             cars.addAll(f.get());
         }
         
+        for (CarDTO car : cars) {
+            String hash = PurchaseLinks.saveLink(car.purchaseURL);
+            String newPurchaseURL = purchaseURI + hash + "&brand=" + car.brand.replace(' ', '-');
+            car.setPurchaseURL(newPurchaseURL);
+        }
+        
         if(cars.isEmpty()){
-            throw new CarondoException("No Cars Found!", "The given search criterias returned 0 results.");
+            throw new CarondoException(200,"No Cars Found!", "The given search criterias returned 0 results.");
         }
         return cars;
     }

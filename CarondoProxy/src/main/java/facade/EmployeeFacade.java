@@ -69,8 +69,8 @@ public class EmployeeFacade {
 
     public Employee editEmployee(Employee emp) throws CarondoException {
         EntityManager em = getEntityManager();
-        checkValidEmp(emp);
         try {
+            checkValidEmp(emp);
             em.getTransaction().begin();
             Employee e = em.find(Employee.class, emp.getId());
             emp.setPassword(e.getPassword());

@@ -50,7 +50,6 @@ public class SwApiConverter extends SharedProps implements Callable<List<CarDTO>
             CARLIST.clear();
             fetchData(URL);
         }
-        fetchData(URL);
     }
 
     
