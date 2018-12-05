@@ -18,11 +18,11 @@ import resource.PurchaseLinks;
 
 public class ProxyFacade {
     
-    private final String purchaseURI = "https://perlt.net/Carondo/forward/";
+    private final String purchaseURI = "https://perlt.net/Carondo/forward?key=";
 
     public List<CarDTO> getCars(String color, String eco, int minSize,
             int maxSize, int minPrice, int maxPrice) throws InterruptedException, ExecutionException, CarondoException {
-        ExecutorService pool = Executors.newFixedThreadPool(2);
+        ExecutorService pool = Executors.newFixedThreadPool(5);
 
         List<Future<List<CarDTO>>> futures = new ArrayList();
 
@@ -45,7 +45,7 @@ public class ProxyFacade {
         
         for (CarDTO car : cars) {
             String hash = PurchaseLinks.saveLink(car.purchaseURL);
-            String newPurchaseURL = purchaseURI + hash;
+            String newPurchaseURL = purchaseURI + hash + "&brand=" + car.brand.replace(' ', '-');
             car.setPurchaseURL(newPurchaseURL);
         }
         
