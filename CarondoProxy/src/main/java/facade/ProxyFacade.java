@@ -50,7 +50,7 @@ public class ProxyFacade {
         }
         
         if(cars.isEmpty()){
-            throw new CarondoException("No Cars Found!", "The given search criterias returned 0 results.");
+            throw new CarondoException(200,"No Cars Found!", "The given search criterias returned 0 results.");
         }
         return cars;
     }
