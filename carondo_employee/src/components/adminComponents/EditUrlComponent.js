@@ -1,5 +1,5 @@
 import React from "react"
-import { FormGroup, FormControl, ControlLabel, Button, Panel, Alert, DropdownButton, MenuItem } from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel, Button, Panel } from 'react-bootstrap';
 
 export default class EditUrlComponent extends React.Component {
     constructor(props) {

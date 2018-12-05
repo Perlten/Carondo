@@ -1,6 +1,6 @@
 import React from "react"
 import urlfacade from './../../facade/UrlFacade'
-import { FormGroup, FormControl, ControlLabel, Button, Panel, Alert, DropdownButton, MenuItem, PanelGroup } from 'react-bootstrap';
+import { Button, Alert, PanelGroup } from 'react-bootstrap';
 import EditUrlComponent from "./EditUrlComponent";
 import UrlFacade from "./../../facade/UrlFacade";
 
@@ -44,8 +44,6 @@ export default class UrlEdit extends React.Component {
 
     async componentDidMount() {
         this.fetchUrls()
-        var x = document.getElementById("editUrlDiv");
-
     }
 
 
