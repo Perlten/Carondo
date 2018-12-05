@@ -9,6 +9,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import dto.CarDTO;
 import dto.CarExtraDTO;
+import entity.RestUrl;
+import facade.RestUrlFacade;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -19,15 +21,22 @@ import java.util.concurrent.Callable;
  */
 public class LarsRoyalityBrandConverter extends SharedProps implements Callable<List<CarDTO>> {
 
-    private final String URI = "https://adamlass.com/LarsRoyalityBrand/api/cars";
+    private String URI = "";
 
     public LarsRoyalityBrandConverter(String color, String eco, int minSize, int maxSize, int minPrice, int maxPrice) {
         super(color, eco, minSize, maxSize, minPrice, maxPrice);
+       
     }
 
     @Override
     public List<CarDTO> call() throws Exception {
+        
+              
         try {
+            
+            RestUrlFacade ruf = new RestUrlFacade();
+              RestUrl ru = ruf.getUrl("LRB");
+              URI += ru.getUrl();
             //building request URL based on inputs
             String URL = URI;
 
@@ -127,6 +136,12 @@ public class LarsRoyalityBrandConverter extends SharedProps implements Callable<
             return new ArrayList();
         }
 
+        
+        
+    }
+
+    public void setURI(String URI) {
+        this.URI = URI;
     }
 
 }

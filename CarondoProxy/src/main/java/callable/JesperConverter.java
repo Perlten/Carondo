@@ -9,6 +9,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import dto.CarDTO;
 import dto.CarExtraDTO;
+import entity.RestUrl;
+import facade.RestUrlFacade;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -16,8 +18,7 @@ import java.util.concurrent.Callable;
 public class JesperConverter extends SharedProps implements Callable<List<CarDTO>> {
 
     private boolean first = true;
-    private final String URL = "https://jrusbjerg.dk/ExamCarBackendJesper/api/car";
-    private String reqUrl = URL;
+    private String reqUrl = "";
 
     public JesperConverter(String color, String eco, int minSize, int maxSize, int minPrice, int maxPrice) {
         super(color, eco, minSize, maxSize, minPrice, maxPrice);
@@ -25,7 +26,12 @@ public class JesperConverter extends SharedProps implements Callable<List<CarDTO
 
     @Override
     public List<CarDTO> call() throws Exception {
-        try {
+            RestUrlFacade ruf = new RestUrlFacade();
+            RestUrl ru = ruf.getUrl("Jesper Inc");
+            reqUrl += ru.getUrl();
+        
+        try {   
+           
             if (!color.equals("all")) {
                 checkIfFirst();
                 reqUrl += "color=" + color;
@@ -93,5 +99,13 @@ public class JesperConverter extends SharedProps implements Callable<List<CarDTO
         reqUrl += "&";
 
     }
+
+    
+
+    public void setReqUrl(String reqUrl) {
+        this.reqUrl = reqUrl;
+    }
+    
+    
 
 }
