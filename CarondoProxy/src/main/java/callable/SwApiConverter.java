@@ -6,6 +6,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import dto.CarDTO;
 import dto.CarExtraDTO;
+import entity.RestUrl;
+import facade.RestUrlFacade;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,7 @@ import java.util.stream.Collectors;
 public class SwApiConverter extends SharedProps implements Callable<List<CarDTO>> {
 
     private static LocalDateTime lastFetch = LocalDateTime.now();
-    private static final String URL = "https://swapi.co/api/vehicles/";
+    private String URL = "";
     private static final String IMAGEURL = "https://vignette.wikia.nocookie.net/starwars/images/3/3c/Px-10-tur.jpg/revision/latest?cb=20100528131240";
     public static final List<CarDTO> CARLIST = new ArrayList<>();
 
@@ -28,12 +30,17 @@ public class SwApiConverter extends SharedProps implements Callable<List<CarDTO>
     @Override
     public List<CarDTO> call() {
         try {
+         RestUrlFacade ruf = new RestUrlFacade();
+        RestUrl ru = ruf.getUrl("Swapi");
+        System.out.println(ru);
+        URL += ru.getUrl();
             shouldFetch();
             return filterCars();
         } catch (Exception e) {
             return new ArrayList<>();
         }
     }
+
 
     private void shouldFetch() throws Exception {
         LocalDateTime now = LocalDateTime.now();
@@ -46,6 +53,7 @@ public class SwApiConverter extends SharedProps implements Callable<List<CarDTO>
         fetchData(URL);
     }
 
+    
    public void fetchData(String url) throws Exception {
         String data = new URLRequest().request(url);
         convertData(data);

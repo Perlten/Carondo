@@ -6,6 +6,7 @@ import { Grid, Row, Col, PageHeader, Image, Button } from 'react-bootstrap';
 import empFacade from './../../facade/EmpCrudFacade';
 import logo from "./../../resources/logo.png"
 import LogoutButton from './../LogoutButton';
+import UrlEdit from './UrlEdit'
 
 
 export default class AdminPage extends Component {
@@ -42,6 +43,7 @@ export default class AdminPage extends Component {
                                 updateEmp={this.updateEmployees}
                                 deleteEmp={this.deleteEmployee}
                             />
+                        <UrlEdit />
                         </Col>
                     </Row>
                 </Grid>

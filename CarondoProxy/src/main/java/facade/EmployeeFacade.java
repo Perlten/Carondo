@@ -15,6 +15,10 @@ public class EmployeeFacade {
     public EmployeeFacade() {
         this.emf = Persistence.createEntityManagerFactory("pu");
     }
+    
+        private EntityManager getEntityManager() {
+        return emf.createEntityManager();
+    }
 
     public EmployeeFacade(EntityManagerFactory emf) {
         this.emf = emf;
@@ -106,9 +110,7 @@ public class EmployeeFacade {
         }
     }
 
-    private EntityManager getEntityManager() {
-        return emf.createEntityManager();
-    }
+
 
     private void checkValidEmp(Employee emp) throws CarondoException {
         String firstName = emp.getFirstName();
