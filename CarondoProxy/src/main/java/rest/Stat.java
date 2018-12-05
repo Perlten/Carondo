@@ -27,6 +27,7 @@ import javax.ws.rs.core.Response;
 public class Stat {
 
     private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private StatFacade facade = new StatFacade();
 
     @Context
     private UriInfo context;
@@ -35,7 +36,6 @@ public class Stat {
     @RolesAllowed({"admin", "statistician"})
     @Produces(MediaType.APPLICATION_JSON)
     public Response getStats() {
-        StatFacade facade = new StatFacade();
         StatResponseDTO responseDTO = facade.getAllStats();
         String json = gson.toJson(responseDTO);
 
