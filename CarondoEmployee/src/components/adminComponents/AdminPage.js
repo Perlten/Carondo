@@ -22,11 +22,11 @@ export default class AdminPage extends Component {
                 <PageHeader>
                     <LogoutButton history={this.props.history} style={{ float: "right", marginRight: 40 }} />
                     <Image style={{ width: 310, height: 110, }} src={logo} />
-                    {' '}- ADMIN PANEL INTERFACE
+                    {' '}- ADMIN
                 </PageHeader>
                 <Grid>
                     <Row>
-                        <Col md={4} xs={4}>
+                        <Col md={6} xs={6}>
                             <div style={{ marginBottom: 20 }}><Button bsStyle="success" onClick={this.handleRoute}>STATISTICS</Button></div>
                             <ShowEmployees
                                 empList={this.state.empList}
@@ -36,7 +36,7 @@ export default class AdminPage extends Component {
                             />
 
                         </Col>
-                        <Col md={6} xs={6} mdOffset={2}>
+                        <Col md={6} xs={6}>
                             <CreateUser fetchEmp={this.fetchEmployees} />
                             <ShowSelected
                                 emp={this.state.selectedEmp}

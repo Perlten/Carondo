@@ -19,8 +19,9 @@ export default class ShowEmployee extends Component {
     }
 
     render() {
+        
         if (!this.props.emp) {
-            return <img src={carImg} alt="Car" />
+            return <img style={{width: "100%", }} src={carImg} alt="Car" />
         }
         return (
             <div>
