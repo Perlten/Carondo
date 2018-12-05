@@ -24,10 +24,10 @@ export default class AdminPage extends Component {
                     <Image style={{ width: 310, height: 110, }} src={logo} />
                     {' '}- ADMIN
                 </PageHeader>
+                <div style={{ marginBottom: 20 }}><Button bsStyle="success" onClick={this.handleRoute}>STATISTICS</Button></div>
                 <Grid>
                     <Row>
                         <Col md={6} xs={6}>
-                            <div style={{ marginBottom: 20 }}><Button bsStyle="success" onClick={this.handleRoute}>STATISTICS</Button></div>
                             <ShowEmployees
                                 empList={this.state.empList}
                                 selectEmp={this.selectEmp}
@@ -43,7 +43,7 @@ export default class AdminPage extends Component {
                                 updateEmp={this.updateEmployees}
                                 deleteEmp={this.deleteEmployee}
                             />
-                        <UrlEdit />
+                            <UrlEdit />
                         </Col>
                     </Row>
                 </Grid>
