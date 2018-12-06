@@ -86,7 +86,6 @@ export default class EditUrlComponent extends React.Component {
 }
 
 function BreakLine(props) {
-    console.log("IT is " + props.checkIfLast)
     if (!props.checkIfLast) {
         return (
             <div>

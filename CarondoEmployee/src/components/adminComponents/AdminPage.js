@@ -27,7 +27,7 @@ export default class AdminPage extends Component {
                 <div style={{ marginBottom: 20 }}><Button bsStyle="success" onClick={this.handleRoute}>STATISTICS</Button></div>
                 <Grid>
                     <Row>
-                        <Col md={6} xs={6}>
+                        <Col md={4} xs={6}>
                             <ShowEmployees
                                 empList={this.state.empList}
                                 selectEmp={this.selectEmp}
@@ -36,7 +36,7 @@ export default class AdminPage extends Component {
                             />
 
                         </Col>
-                        <Col md={6} xs={6}>
+                        <Col mdOffset={2} md={6} xs={6}>
                             <CreateUser fetchEmp={this.fetchEmployees} />
                             <ShowSelected
                                 emp={this.state.selectedEmp}
