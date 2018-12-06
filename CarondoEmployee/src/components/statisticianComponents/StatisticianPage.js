@@ -7,6 +7,7 @@ import BrandGraph from "./BrandGraph"
 import ColorGraph from './ColorGraph';
 import StatFacade from './../../facade/StatsFacade';
 import WeekdayGraph from './WeekdayGraph'
+import PriceRangeGraph from './PriceRangeGraph'
 
 export default class StatisticianPage extends Component {
 
@@ -17,7 +18,7 @@ export default class StatisticianPage extends Component {
   }
 
   componentDidMount() {
-    setInterval(this.fetchData, 15000);
+    setInterval(this.fetchData, 5000);
   }
 
   render() {
@@ -49,7 +50,12 @@ export default class StatisticianPage extends Component {
                                 <ColorGraph colors={this.state.stats.colorList} />                            
                             </Col>
                         </Row>
-
+                        <br/>
+                        </Col>
+                        
+                        <Col md={12} xs={12}>
+                        <h2>Price Range Popularity</h2>
+                            <PriceRangeGraph priceRanges={this.state.stats.priceRangeList}/>
                         </Col>
                     </Row>
                 </Grid>
