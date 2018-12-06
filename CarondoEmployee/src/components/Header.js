@@ -45,7 +45,7 @@ export default class Header extends React.Component {
                 return <div></div>
             }
         }
-        return <Button bsStyle="success" onClick={this.handleRoute}>{this.props.button}</Button>
+        return <Button bsStyle="info" onClick={this.handleRoute}>{this.props.button}</Button>
 
     }
 }

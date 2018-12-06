@@ -27,8 +27,8 @@ export default class StatisticianPage extends Component {
 
     return (
       <div style={{ marginLeft: 20, marginRight: 20 }}>
-        <Header title="STATISTICS" button="ADMIN" {...this.props}/>
-        {/* <CheckIfAdmin handleRoute={this.handleRoute} /> */}
+        <Header title="STATISTICS" button="ADMIN" {...this.props} />
+        
         <Grid>
           <Row>
             <Col md={12} xs={12} >
