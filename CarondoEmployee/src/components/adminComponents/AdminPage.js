@@ -23,7 +23,7 @@ export default class AdminPage extends Component {
                 <Header title="ADMIN" button="STATISTICS" {...this.props}/>
                 <Grid>
                     <Row>
-                        <Col md={4} xs={6}>
+                        <Col  md={4} xs={12}>
                             <ShowEmployees
                                 empList={this.state.empList}
                                 selectEmp={this.selectEmp}
@@ -32,7 +32,7 @@ export default class AdminPage extends Component {
                             />
 
                         </Col>
-                        <Col mdOffset={2} md={6} xs={6}>
+                        <Col mdOffset={2} md={6} xs={12}>
                             <CreateUser fetchEmp={this.fetchEmployees} />
                             <UrlEdit />
                             <ShowSelected

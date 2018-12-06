@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import facade from './../facade/LoginFacade';
 import { parseJWT } from './../facade/FacadeUtils';
-import { Button, ControlLabel, FormControl, FormGroup, Alert } from 'react-bootstrap';
+import { Button, ControlLabel, FormControl, FormGroup, Alert, Image, Grid, Row, Col } from 'react-bootstrap';
 import logo from './../resources/logo.png';
 
 export default class LoginPage extends Component {
@@ -19,36 +19,54 @@ export default class LoginPage extends Component {
     render() {
         return (
             <div>
-                <img src={logo} alt="error" style={style.imageStyle} />
-                <div style={style.centerContainer}>
-                    <ErrorMessage error={this.state.error} handleDismiss={() => this.setState({error: ""})}/>
-                    <form onKeyUp={this.enterPress} style={style.formInput}>
-                        <FormGroup>
-                            <ControlLabel>
-                                Email
-                        </ControlLabel>
-                            <FormControl
-                                id="email"
-                                type="email"
-                                value={this.state.login.email}
-                                placeholder="Enter Email"
-                                onChange={this.handleChange}
-                            />
-                        </FormGroup>
-                        <FormGroup >
-                            <ControlLabel>
-                                Password
-                        </ControlLabel>
-                            <FormControl
-                                id="password"
-                                type="password"
-                                value={this.state.login.password}
-                                placeholder="Enter Password"
-                                onChange={this.handleChange}
-                            />
-                        </FormGroup>
-                        <Button onClick={this.handleSubmit} bsStyle="success">Login</Button>
-                    </form>
+                <Grid >
+                    <Row>
+                        <Col md={12} style={style.center}>
+                            <Image src={logo} alt="error" style={{ margin: "auto", width: "95%", maxWidth: 500, }} />
+                        </Col>
+                        <Col md={12} style={style.center}>
+                            <h1>Employee Portal</h1>
+                        </Col>
+                        <Col md={12}>
+                        <br/>
+                            <ErrorMessage error={this.state.error} handleDismiss={() => this.setState({ error: "" })} />
+                            <form onKeyUp={this.enterPress} style={style.formInput}>
+                                <FormGroup>
+                                    <ControlLabel>
+                                        Email
+                                    </ControlLabel>
+                                    <FormControl
+                                        id="email"
+                                        type="email"
+                                        value={this.state.login.email}
+                                        placeholder="Enter Email"
+                                        onChange={this.handleChange}
+                                    />
+                                </FormGroup>
+                                <FormGroup >
+                                    <ControlLabel>
+                                        Password
+                                    </ControlLabel>
+                                    <FormControl
+                                        id="password"
+                                        type="password"
+                                        value={this.state.login.password}
+                                        placeholder="Enter Password"
+                                        onChange={this.handleChange}
+                                    />
+                                </FormGroup>
+                                <Button onClick={this.handleSubmit} bsStyle="success">Login</Button>
+                            </form>
+                        </Col>
+
+                    </Row>
+                </Grid>
+
+
+
+
+                <div>
+
                 </div>
             </div>
         )
@@ -56,7 +74,7 @@ export default class LoginPage extends Component {
 
     enterPress = (e) => {
         e.preventDefault();
-        if(e.keyCode === 13){
+        if (e.keyCode === 13) {
             this.handleSubmit(e);
         }
     }
@@ -73,7 +91,7 @@ export default class LoginPage extends Component {
         const history = this.props.history
         token.role === "admin" ? history.push('/adminPage') : history.push('/statisticsPage')
     }
-    
+
     handleChange = (e) => {
         const value = e.target.value;
         const id = e.target.id;
@@ -83,7 +101,7 @@ export default class LoginPage extends Component {
     }
 }
 
-function ErrorMessage({error, handleDismiss}) {
+function ErrorMessage({ error, handleDismiss }) {
     if (error) {
         return (
             <Alert bsStyle="danger" onDismiss={handleDismiss}><strong>{error}</strong> </Alert>
@@ -108,5 +126,8 @@ const style = {
         width: 700,
         position: 'absolute', left: '50%',
         transform: 'translate(-50%)'
+    },
+    center: {
+        justifyContent: "center", alignItems: "center", display: "flex"
     }
 }

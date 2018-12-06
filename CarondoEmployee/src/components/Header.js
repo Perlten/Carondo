@@ -14,19 +14,18 @@ export default class Header extends React.Component {
         return (
             <PageHeader>
                 <Row>
-                    <Col md={4}>
+                    <Col md={12}>
+                        <LogoutButton history={this.props.history} style={{ float: "right" }} />
                         {this.getButton()}
                     </Col>
-                    <Col md={4}>
+
+                    <Col md={12}>
                         <div style={{ margin: "auto", textAlign: "center" }}>
                             <Image style={{ width: 310, height: 110, }} src={logo} />
                             <p>{this.props.title}</p>
                         </div>
                     </Col>
-                    <Col md={4}>
-                        <LogoutButton history={this.props.history} style={{ float: "right", marginRight: 40 }} />
-
-                    </Col>
+                    
                 </Row>
             </PageHeader>
         )
