@@ -103,7 +103,7 @@ export default class CreateUser extends Component {
         this.setState({ message: "Successful!" })
         const create = { firstName: "", lastName: "", email: "", password: "", role: "admin" };
         this.setState({ create });
-        this.toggleCollapse();
+        // this.toggleCollapse();
 
     }
 
@@ -133,7 +133,7 @@ export default class CreateUser extends Component {
 function ErrorMessage({ error, handleDismiss }) {
     if (error) {
         return (
-            <Alert bsStyle="danger" onDismiss={handleDismiss}><strong>{error}</strong> </Alert>
+            <Alert bsStyle="success" onDismiss={handleDismiss}><strong>{error}</strong> </Alert>
         );
     }
     return (

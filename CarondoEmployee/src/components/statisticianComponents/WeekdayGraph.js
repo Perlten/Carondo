@@ -12,7 +12,7 @@ export default function ColorGraph({ dates }) {
         labels: labels,
         datasets: [
             {
-                label: 'Weekday visits',
+                label: 'Weekday total searches',
                 backgroundColor: 'rgba(255,99,132,0.2)',
                 borderColor: 'rgba(255,99,132,1)',
                 pointBackgroundColor: 'rgba(255,99,132,1)',
@@ -25,7 +25,6 @@ export default function ColorGraph({ dates }) {
       };
     return (
         <div>
-            <h1>Radar</h1>
             <Radar data={data} />
         </div>
     );

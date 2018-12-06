@@ -3,10 +3,12 @@ package facade;
 import dto.stat.BrandDTO;
 import dto.stat.ColorDTO;
 import dto.stat.DateDTO;
+import dto.stat.PriceRangeDTO;
 import dto.stat.StatResponseDTO;
 import entity.stat.BrandStat;
 import entity.stat.ColorStat;
 import entity.stat.DateStat;
+import entity.stat.PriceRangeStat;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
@@ -110,6 +112,8 @@ public class StatFacade {
             List<BrandStat> brandList = brandQ.getResultList();
             TypedQuery<DateStat> dateQ = em.createQuery("SELECT d FROM DateStat d", DateStat.class);
             List<DateStat> dateList = dateQ.getResultList();
+            List<PriceRangeStat> priceRangeList = em.createQuery("SELECT p FROM PriceRangeStat p", PriceRangeStat.class)
+                   .getResultList();
 
             List<ColorDTO> colorDtoList = colorList.stream().map((t) -> { return new ColorDTO(t);})
                     .collect(Collectors.toList());
@@ -117,7 +121,10 @@ public class StatFacade {
                     .collect(Collectors.toList());
             List<DateDTO> dateDtoList = dateList.stream().map((t) -> { return new DateDTO(t);})
                     .collect(Collectors.toList());
-            return new StatResponseDTO(brandDtoList, colorDtoList, dateDtoList);
+            List<PriceRangeDTO> priceRangeDtoList = priceRangeList.stream()
+                    .map((t) -> { return new PriceRangeDTO(t);})
+                    .collect(Collectors.toList());
+            return new StatResponseDTO(brandDtoList, colorDtoList, dateDtoList, priceRangeDtoList);
         } finally {
             em.close();
         }
@@ -134,5 +141,24 @@ public class StatFacade {
 
     private EntityManager getEm() {
         return emf.createEntityManager();
+    }
+    
+    public void updatePriceRangeStats(int min, int max){
+        EntityManager em = getEm();
+       try{
+           List<PriceRangeStat> PriceRanges = em.createQuery("SELECT p FROM PriceRangeStat p", PriceRangeStat.class)
+                   .getResultList();
+           
+           for (PriceRangeStat pr : PriceRanges) {
+               if(pr.getStart() >= min && pr.getEnd() <= max){
+                   pr.countUp();
+                   em.getTransaction().begin();
+                   em.merge(pr);
+                   em.getTransaction().commit();
+               }
+           }
+       } finally {
+           em.close();
+       }
     }
 }

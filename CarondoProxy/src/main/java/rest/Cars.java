@@ -45,6 +45,7 @@ public class Cars {
         StatFacade statFacade = new StatFacade();
         statFacade.updateColorStat(color.split(","));
         statFacade.saveCurrentDate();
+        statFacade.updatePriceRangeStats(minPrice, maxPrice);
 
         List<CarDTO> carList = facade.getCars(color, eco, minSize, maxSize, minPrice, maxPrice);
         String json = gson.toJson(carList);
