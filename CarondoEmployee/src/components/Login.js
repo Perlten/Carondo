@@ -71,7 +71,7 @@ export default class LoginPage extends Component {
         }
         const token = parseJWT(res.token);
         const history = this.props.history
-        token.role === "admin" ? history.push('/adminPage') : history.push('/statisticianPage')
+        token.role === "admin" ? history.push('/adminPage') : history.push('/statisticsPage')
     }
     
     handleChange = (e) => {

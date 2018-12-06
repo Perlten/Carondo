@@ -8,6 +8,7 @@ import ColorGraph from './ColorGraph';
 import StatFacade from './../../facade/StatsFacade';
 import WeekdayGraph from './WeekdayGraph'
 import PriceRangeGraph from './PriceRangeGraph'
+import Header from '../Header'
 
 export default class StatisticianPage extends Component {
 
@@ -26,46 +27,42 @@ export default class StatisticianPage extends Component {
 
     return (
       <div style={{ marginLeft: 20, marginRight: 20 }}>
-        <PageHeader>
-          <LogoutButton history={this.props.history} style={{ float: "right", marginRight: 40 }} />
-          <Image style={{ width: 310, height: 110 }} src={logo} />
-          {' '}- STATISTICS
-                </PageHeader>
-                <CheckIfAdmin handleRoute={this.handleRoute} />
-                <Grid>
-                    <Row>
-                        <Col md={12} xs={12} >
-                            <h2>Brand popularity</h2>
-                            <BrandGraph brands={this.state.stats.brandList} />
-                        </Col>
-                        <Col md={12} xs={12}>
-                        <Row>
-                            <Col md={6} xs={12}>
-                                <h2>Weekday Total Searches</h2>
+        <Header title="STATISTICS" button="ADMIN" {...this.props}/>
+        {/* <CheckIfAdmin handleRoute={this.handleRoute} /> */}
+        <Grid>
+          <Row>
+            <Col md={12} xs={12} >
+              <h2>Brand popularity</h2>
+              <BrandGraph brands={this.state.stats.brandList} />
+            </Col>
+            <Col md={12} xs={12}>
+              <Row>
+                <Col md={6} xs={12}>
+                  <h2>Weekday Total Searches</h2>
 
-                             <WeekdayGraph dates={this.state.stats.dateList} />
-                            </Col>
-                            <Col md={6} xs={12}>
-                                <h2>Color popularity by search</h2>
-                                <ColorGraph colors={this.state.stats.colorList} />                            
-                            </Col>
-                        </Row>
-                        <br/>
-                        </Col>
-                        
-                        <Col md={12} xs={12}>
-                        <h2>Price Range Popularity</h2>
-                            <PriceRangeGraph priceRanges={this.state.stats.priceRangeList}/>
-                        </Col>
-                    </Row>
-                </Grid>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-            </div>
-        );
-    }
+                  <WeekdayGraph dates={this.state.stats.dateList} />
+                </Col>
+                <Col md={6} xs={12}>
+                  <h2>Color popularity by search</h2>
+                  <ColorGraph colors={this.state.stats.colorList} />
+                </Col>
+              </Row>
+              <br />
+            </Col>
+
+            <Col md={12} xs={12}>
+              <h2>Price Range Popularity</h2>
+              <PriceRangeGraph priceRanges={this.state.stats.priceRangeList} />
+            </Col>
+          </Row>
+        </Grid>
+        <br />
+        <br />
+        <br />
+        <br />
+      </div>
+    );
+  }
 
   fetchData = async () => {
     const res = await StatFacade.getStatistics();

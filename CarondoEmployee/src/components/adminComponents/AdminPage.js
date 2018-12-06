@@ -7,6 +7,7 @@ import empFacade from './../../facade/EmpCrudFacade';
 import logo from "./../../resources/logo.png"
 import LogoutButton from './../LogoutButton';
 import UrlEdit from './UrlEdit'
+import Header from '../Header'
 
 
 export default class AdminPage extends Component {
@@ -19,12 +20,7 @@ export default class AdminPage extends Component {
     render() {
         return (
             <div style={{ marginLeft: 20, marginRight: 20, marginBottom: 100 }}>
-                <PageHeader>
-                    <LogoutButton history={this.props.history} style={{ float: "right", marginRight: 40 }} />
-                    <Image style={{ width: 310, height: 110, }} src={logo} />
-                    {' '}- ADMIN
-                </PageHeader>
-                <div style={{ marginBottom: 20 }}><Button bsStyle="success" onClick={this.handleRoute}>STATISTICS</Button></div>
+                <Header title="ADMIN" button="STATISTICS" {...this.props}/>
                 <Grid>
                     <Row>
                         <Col md={4} xs={6}>
@@ -78,9 +74,5 @@ export default class AdminPage extends Component {
         this.setState({ selectedEmp })
     }
 
-    handleRoute = (e) => {
-        e.preventDefault()
-        const history = this.props.history
-        history.push('/statisticianPage')
-    }
+   
 }
