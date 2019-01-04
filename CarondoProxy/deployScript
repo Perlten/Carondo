@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+file=Carondo.war
+
+mvn install -DskipTests &&
+scp ./target/$file root@165.227.144.45:/var/lib/tomcat8/webapps/ &&
+ssh root@165.227.144.45 service tomcat8 restart
+
