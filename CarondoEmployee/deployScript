@@ -2,12 +2,35 @@
 
 page='carondoEmployee'
 site='https://perlt.net/'
+ip=165.227.144.152
 
-npm install &&
-json -I -f package.json -e 'this.homepage="'$site$page'"' &&
+edit='false'
+ins="true"
+
+while getopts 'e i' flag; do
+  case "${flag}" in
+    e) edit='true' ;;
+    i) ins="false" ;;
+  esac
+done
+
+if [ $ins == "true" ] 
+then
+    echo installing dep 
+    npm install
+fi
+
+json -I -f package.json -e "this.homepage=\"$site$page\"" &&
 npm run build &&
 echo Removing old folder and creating new one
-ssh root@165.227.144.152 "rm -rf /var/www/$page/; mkdir /var/www/$page" &&
+ssh root@$ip "rm -rf /var/www/$page/; mkdir /var/www/$page" &&
 echo DONE &&
 echo Sending build folder content to server &&
-scp -r ./build/* root@165.227.144.152:/var/www/$page
+scp -r ./build/* root@$ip:/var/www/$page 
+
+if [ $edit == "true" ]
+then
+	echo Edit remote default file
+	ssh -t root@$ip "nano /etc/nginx/sites-available/default"
+	ssh root@$ip "service nginx restart"
+fi
